@@ -3,4 +3,38 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <!--Paleta 1-->
+    <color name="colorFondo1">#ffdfbf</color>
+    <color name="colorCrema1">#ffbe80</color>
+    <color name="colorNaranja1">#cc5500</color>
+    <color name="colorNaranjaClaro1">#cc6400</color>
+    <color name="colorMarron1">#8f4600</color>
+
+    <!--Paleta 2-->
+    <color name="colorFondo2">#DEDDD7</color>
+    <color name="colorNaranja2">#DC602E</color>
+    <color name="colorRojo2">#BC412B</color>
+    <color name="colorLila2">#7F7EFF</color>
+    <color name="colorLilaClaro2">#A390E4</color>
+
+    <!--Paleta 3-->
+    <color name="colorFondo3">#f6f4e6</color>
+    <color name="colorAmarillo3">#fddb3a</color>
+    <color name="colorGris3">#52575d</color>
+    <color name="colorNegro3">#41444b</color>
+
+    <!--Paleta 4-->
+    <color name="colorVerde4">#335C67</color>
+    <color name="colorFondo4">#FFF3B0</color>
+    <color name="colorAmarillo4">#E09F3E</color>
+    <color name="colorNBordo4">#9E2A2B</color>
+    <color name="colorVino4">#540B0E</color>
+
+    <!--Paleta 5-->
+    <color name="colorFondo5">#f6f6f6</color>
+    <color name="colornaranja5">#ffbb91</color>
+    <color name="colorNaranjaClaro5">#ff8e6e</color>
+    <color name="colorVioleta5">#515070</color>
+
 </resources>
