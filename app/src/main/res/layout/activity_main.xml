@@ -5,204 +5,362 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+
+        <TextView
+            android:id="@+id/tv_camposobligatorios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans"
+            android:gravity="right"
+            android:text="@string/required_fields1"
+            android:textColor="@color/colorCamposObligatorios"
+            android:textSize="@dimen/tamaño_fuente2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/name_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:textSize="@dimen/tamaño_fuente" />
+
+            <EditText
+                android:id="@+id/surname_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/surname"
+                android:inputType="textPersonName"
+                android:textSize="@dimen/tamaño_fuente" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/email_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textSize="@dimen/tamaño_fuente" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/password_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/password2_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/password2"
+                android:inputType="textPassword"
+                android:textSize="@dimen/tamaño_fuente" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView_TipoTarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_margin2"
+                android:layout_marginBottom="@dimen/layout_margin"
+                android:fontFamily="@font/nunito_sans"
+                android:text="@string/card_type"
+                android:textSize="@dimen/tamaño_fuente2" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_credit_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:text="@string/credit_card"
+                android:textSize="@dimen/tamaño_fuente2" />
+
+            <RadioButton
+                android:id="@+id/rb_debit_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:text="@string/debit_card" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/cardnumber_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/cardnumber"
+                android:inputType="number"
+                android:textSize="@dimen/tamaño_fuente" />
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/ccv_id"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:enabled="false"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/ccv"
+                android:inputType="number"
+                android:textSize="@dimen/tamaño_fuente" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2_FechaVencimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:fontFamily="@font/nunito_sans"
+            android:text="@string/expiration_date"
+            android:textSize="@dimen/tamaño_fuente2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/expiration_month_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:enabled="false"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/expiration_month"
+                android:inputType="number"
+                android:textSize="@dimen/tamaño_fuente" />
+
+            <TextView
+                android:id="@+id/tv_camposobligatorios8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/required_fields2"
+                android:textColor="@color/colorCamposObligatorios"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/expiration_year_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:enabled="false"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:hint="@string/expiration_year"
+                android:inputType="number" />
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/name_id"
-            android:layout_width="wrap_content"
+            android:id="@+id/cbu_id"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginTop="@dimen/layout_margin3"
             android:ems="10"
-            android:hint="@string/name"
-            android:inputType="textPersonName" />
+            android:fontFamily="@font/nunito_sans_extralight"
+            android:hint="@string/cbu"
+            android:inputType="number"
+            android:textSize="@dimen/tamaño_fuente" />
 
         <EditText
-            android:id="@+id/surname_id"
-            android:layout_width="wrap_content"
+            android:id="@+id/alias_cbu_id"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/layout_margin4"
             android:ems="10"
-            android:hint="@string/surname"
-            android:inputType="textPersonName" />
-    </LinearLayout>
+            android:fontFamily="@font/nunito_sans_extralight"
+            android:hint="@string/alias_cbu"
+            android:inputType="textPersonName"
+            android:textSize="@dimen/tamaño_fuente" />
 
-    <EditText
-        android:id="@+id/email_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/password_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="@string/password"/>
-
-    <EditText
-        android:id="@+id/password2_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="@string/password2"
-        android:enabled="false"/>
-
-    <TextView
-        android:id="@+id/textView_TipoTarjeta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/card_type" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_credit_id"
-            android:layout_width="wrap_content"
+        <Switch
+            android:id="@+id/switch_loadmoney_id"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/credit_card"
-            android:checked="true"
-            />
+            android:layout_marginTop="@dimen/layout_margin3"
+            android:fontFamily="@font/nunito_sans"
+            android:text="@string/load_money"
+            android:textSize="@dimen/tamaño_fuente2" />
 
-        <RadioButton
-            android:id="@+id/rb_debit_id"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_carga_id"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/debit_card" />
-    </RadioGroup>
+            android:fontFamily="@font/nunito_sans"
+            android:text="$ 0"
+            android:textSize="@dimen/tamaño_fuente2"
+            android:visibility="gone" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/cardnumber_id"
-            android:layout_width="wrap_content"
+        <SeekBar
+            android:id="@+id/seekBar_id"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/cardnumber"
-            android:inputType="number" />
+            android:layout_marginTop="@dimen/layout_margin"
+            android:visibility="gone" />
 
-        <EditText
-            android:id="@+id/ccv_id"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_amounterror"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/ccv"
+            android:layout_marginLeft="10sp"
+            android:fontFamily="@font/nunito_sans"
+            android:text="@string/error_initial_amount"
+            android:textColor="@color/colorError"
+            android:textSize="@dimen/layout_margin"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/cb_accept_terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margin5"
+            android:fontFamily="@font/nunito_sans"
+            android:text="@string/accept_terms"
+            android:textSize="@dimen/tamaño_fuente2" />
+
+        <Button
+            android:id="@+id/button_register_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margin"
+            android:backgroundTint="@color/colorAccent"
             android:enabled="false"
-            android:inputType="number" />
+            android:fontFamily="@font/nunito_sans"
+            android:text="@string/Register"
+            android:textSize="@dimen/tamaño_fuente" />
+
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView2_FechaVencimiento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/expiration_date" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/expiration_month_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="@string/expiration_month"/>
-
-        <EditText
-            android:id="@+id/expiration_year_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="@string/expiration_year"/>
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/cbu_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="@string/cbu"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/alias_cbu_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:hint="@string/alias_cbu"
-        android:inputType="textPersonName" />
-
-    <Switch
-        android:id="@+id/switch_loadmoney_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/load_money" />
-
-    <TextView
-        android:id="@+id/tv_carga_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="$ 0"
-        android:visibility="gone" />
-
-    <SeekBar
-        android:id="@+id/seekBar_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"/>
-
-    <CheckBox
-        android:id="@+id/cb_accept_terms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/accept_terms" />
-
-    <Button
-        android:id="@+id/button_register_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:enabled="false"
-        android:text="@string/Register" />
-
-
-</LinearLayout>
 </ScrollView>

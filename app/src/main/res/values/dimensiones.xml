@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tamaño_fuente">18sp</dimen>
+    <dimen name="tamaño_fuente2">14sp</dimen>
+    <dimen name="layout_margin">10dp</dimen>
+
+    <dimen name="layout_margin2">5dp</dimen>
+    <dimen name="layout_margin3">15dp</dimen>
+    <dimen name="layout_margin4">20dp</dimen>
+    <dimen name="layout_margin5">30dp</dimen>
 
 
 
-<resources></resources>
+
+
+
+
+</resources>

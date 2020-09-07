@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -16,6 +19,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText et_name, et_surname, et_email, et_password, et_password2, et_card, et_ccv, et_month, et_year, et_cbu, et_aliascbu;
@@ -24,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Button button_register;
     SeekBar seekbar_amount;
     Switch switch_load;
-    TextView tv_carga;
+    TextView tv_carga, tv_errorcarga;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +55,11 @@ public class MainActivity extends AppCompatActivity {
         seekbar_amount = findViewById(R.id.seekBar_id);
         switch_load = findViewById(R.id.switch_loadmoney_id);
         tv_carga = findViewById(R.id.tv_carga_id);
+        tv_errorcarga = findViewById(R.id.tv_amounterror);
 
+        //HABILITAR Y DESHABILITAR CCV, MES Y AÑO SEGÚN "NRO DE TARJETA"
         et_card.addTextChangedListener(new TextWatcher() {
-           @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+           @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -71,13 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 et_year.setEnabled(!card_string.isEmpty());
             }
 
-            @Override
-            public void afterTextChanged(Editable editable) {}
+            @Override public void afterTextChanged(Editable editable) {}
         });
 
+        //HABILITAR "REPETIR CONTRASEÑA" UNA VEZ SE COMPLETÓ "CONTRASEÑA"
         et_password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -91,24 +97,45 @@ public class MainActivity extends AppCompatActivity {
                 et_password2.setEnabled(!password_string.isEmpty());
             }
 
-            @Override
-            public void afterTextChanged(Editable editable) {}
+            @Override public void afterTextChanged(Editable editable) {}
         });
 
-        et_password2.addTextChangedListener(new TextWatcher() {
+        //VALIDAR CONTRASEÑAS
+        et_password2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!et_password.getText().toString().equals(et_password2.getText().toString())){
-                    et_password2.setError(getString(R.string.no_coinciden)); //TODO ver por qué no anda sin el "getString" :(
-                    et_password2.requestFocus(); //TODO ver si sacamos esto, que _pareciera_ que no cambia nada (?)
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if(!et_password.getText().toString().equals(et_password2.getText().toString())){
+                        et_password2.setError(getString(R.string.error_no_coinciden));
+                    }
                 }
             }
+        });
+
+        //CHEQUEAR MES VÁLIDO (1->12)
+        et_month.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+                if(!et_month.getText().toString().isEmpty() && (Integer.parseInt(et_month.getText().toString()) > 12 || Integer.parseInt(et_month.getText().toString()) == 0))
+                    et_month.setError(getString(R.string.error_month));
+                    et_month.requestFocus();
+            }
+        });
+
+        //CHEQUEAR CBU VÁLIDO (22 CARÁCTERES)
+        et_cbu.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if(et_cbu.getText().toString().length() != 22  && !et_cbu.getText().toString().isEmpty()) {
+                        et_cbu.setError(getString(R.string.error_cbu));
+                        //et_cbu.requestFocus();
+                    }
+                }
+            }
         });
 
         //LISTENER "ACEPTAR TÉRMINOS Y CONDICIONES" + "REALIZAR CARGA"
@@ -144,18 +171,16 @@ public class MainActivity extends AppCompatActivity {
                 tv_carga.setText("$ " + String.valueOf(cantidad));
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+
+
 
         //VALIDACIÓN PARA REGISTRAR
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //(MainActivity.this).
                 Validar();
             }
         });
@@ -163,21 +188,81 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Validar(){
+        boolean validado = true;
+
+        //VALIDAR CARGA INICIAL
+        int cantidad_inicial = seekbar_amount.getProgress();
+        if(cantidad_inicial==0 && switch_load.isChecked()){
+            tv_errorcarga.setVisibility(View.VISIBLE);
+            validado = false;
+        }else{
+            tv_errorcarga.setVisibility(View.GONE);
+        }
+        
+
+        //VALIDAR CORREO ELECTRÓNICO
+        Pattern pattern_email = Patterns.EMAIL_ADDRESS;
+        if(!pattern_email.matcher(et_email.getText().toString()).matches() && !et_email.getText().toString().isEmpty()){
+            et_email.setError(getString(R.string.error_email));
+            et_email.requestFocus();
+            validado = false;
+        }
+
+        //VALIDAR FECHA VENCIMIENTO
+        if(!et_month.getText().toString().isEmpty() && !et_year.getText().toString().isEmpty()){
+            Calendar fecha_minima = Calendar.getInstance();
+            fecha_minima.add(Calendar.MONTH, 3);
+
+            Calendar fecha_ingresada = Calendar.getInstance();
+            fecha_ingresada.set(Calendar.YEAR, Integer.parseInt(et_year.getText().toString()));
+            fecha_ingresada.set(Calendar.MONTH, Integer.parseInt(et_month.getText().toString())-1);
+            fecha_ingresada.set(Calendar.DATE, fecha_minima.DATE);
+
+            if(fecha_ingresada.before(fecha_minima)) {
+                et_year.setError(getString(R.string.error_expirationdate));
+                et_month.setError(getString(R.string.error_expirationdate));
+                et_year.requestFocus();
+                validado = false;
+            }
+        }
+
         //Validar campos obligatorios
-        if(et_email.getText().toString().length()==0)
-            Toast.makeText(this, getString(R.string.complete)+" la dirección de correo electrónico", Toast.LENGTH_LONG).show();
-        if(et_password.getText().toString().isEmpty())
-            Toast.makeText(this, getString(R.string.complete)+" la contraseña", Toast.LENGTH_LONG).show();
-        if(et_card.getText().toString().isEmpty())
-            Toast.makeText(this, getString(R.string.complete)+" el número de tarjeta", Toast.LENGTH_LONG).show();
-        if(!rb_credit.isChecked() && !rb_debit.isChecked())
-            Toast.makeText(this, getString(R.string.complete)+" el tipo de tarjeta", Toast.LENGTH_LONG).show();
-        if(et_ccv.getText().toString().isEmpty())
-            Toast.makeText(this, getString(R.string.complete)+" el CCV", Toast.LENGTH_LONG).show();
-        if(et_month.getText().toString().isEmpty())
-            Toast.makeText(this, getString(R.string.complete)+" la fecha de vencimiento (mes)", Toast.LENGTH_LONG).show();
-        if(et_year.getText().toString().isEmpty())
-            Toast.makeText(this, getString(R.string.complete)+" la fecha de vencimiento (año)", Toast.LENGTH_LONG).show();
+        if(et_email.getText().toString().length()==0){
+            et_email.startAnimation(shakeError());
+            validado = false;
+        }
+        if(et_password.getText().toString().isEmpty()){
+            et_password.startAnimation(shakeError());
+            validado = false;
+        }
+        if(et_card.getText().toString().isEmpty()) {
+            et_card.startAnimation(shakeError());
+            validado = false;
+        }
+        if(!rb_credit.isChecked() && !rb_debit.isChecked()){
+            rb_credit.startAnimation(shakeError());
+            validado = false;
+        }
+        if(et_ccv.getText().toString().isEmpty()){
+            et_ccv.startAnimation(shakeError());
+            validado = false;
+        }
+        if(et_month.getText().toString().isEmpty()) {
+            et_month.startAnimation(shakeError());
+            validado = false;
+        }
+        if(et_year.getText().toString().isEmpty()) {
+            et_year.startAnimation(shakeError());
+            validado = false;
+        }
+        if(validado) Toast.makeText(this, getString(R.string.exito), Toast.LENGTH_LONG).show();
+    }
+
+    public TranslateAnimation shakeError() {
+        TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
+        shake.setDuration(500);
+        shake.setInterpolator(new CycleInterpolator(3));
+        return shake;
     }
 
 }
