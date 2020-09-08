@@ -105,23 +105,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if(!et_password.getText().toString().equals(et_password2.getText().toString())){
-                        et_password2.setError(getString(R.string.error_no_coinciden));
-                    }
+                    validarContrasenia();
                 }
             }
         });
 
         //CHEQUEAR MES VÁLIDO (1->12)
-        et_month.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
+        et_month.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void afterTextChanged(Editable editable) {
-                if(!et_month.getText().toString().isEmpty() && (Integer.parseInt(et_month.getText().toString()) > 12 || Integer.parseInt(et_month.getText().toString()) == 0))
-                    et_month.setError(getString(R.string.error_month));
-                    et_month.requestFocus();
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    validarMes();
+                    validarVencimiento();
+                }
+            }
+        });
+
+        //VALIDAR VENCIMIENTO
+        et_year.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    validarVencimiento();
+                }
             }
         });
 
@@ -130,10 +136,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if(et_cbu.getText().toString().length() != 22  && !et_cbu.getText().toString().isEmpty()) {
-                        et_cbu.setError(getString(R.string.error_cbu));
-                        //et_cbu.requestFocus();
-                    }
+                    validarCBU();
+                }
+            }
+        });
+
+        //CHEQUAR EMAIL VÁLIDO
+        et_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    validarEmail();
                 }
             }
         });
@@ -151,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!isChecked){
                             seekbar_amount.setVisibility(View.GONE);
                             tv_carga.setVisibility(View.GONE);
+                            tv_errorcarga.setVisibility(View.GONE);
                         } else {
                             seekbar_amount.setVisibility(View.VISIBLE);
                             tv_carga.setVisibility(View.VISIBLE);
@@ -175,8 +189,6 @@ public class MainActivity extends AppCompatActivity {
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-
-
         //VALIDACIÓN PARA REGISTRAR
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,28 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void Validar(){
-        boolean validado = true;
-
-        //VALIDAR CARGA INICIAL
-        int cantidad_inicial = seekbar_amount.getProgress();
-        if(cantidad_inicial==0 && switch_load.isChecked()){
-            tv_errorcarga.setVisibility(View.VISIBLE);
-            validado = false;
-        }else{
-            tv_errorcarga.setVisibility(View.GONE);
-        }
-        
-
-        //VALIDAR CORREO ELECTRÓNICO
-        Pattern pattern_email = Patterns.EMAIL_ADDRESS;
-        if(!pattern_email.matcher(et_email.getText().toString()).matches() && !et_email.getText().toString().isEmpty()){
-            et_email.setError(getString(R.string.error_email));
-            et_email.requestFocus();
-            validado = false;
-        }
-
-        //VALIDAR FECHA VENCIMIENTO
+    public boolean validarVencimiento() {
         if(!et_month.getText().toString().isEmpty() && !et_year.getText().toString().isEmpty()){
             Calendar fecha_minima = Calendar.getInstance();
             fecha_minima.add(Calendar.MONTH, 3);
@@ -221,9 +212,54 @@ public class MainActivity extends AppCompatActivity {
             if(fecha_ingresada.before(fecha_minima)) {
                 et_year.setError(getString(R.string.error_expirationdate));
                 et_month.setError(getString(R.string.error_expirationdate));
-                et_year.requestFocus();
-                validado = false;
+                return false;
+            }else{
+                et_year.setError(null);
+                et_month.setError(null);
+                return true;
             }
+        }return false;
+    }
+
+    public boolean validarEmail() {
+        Pattern pattern_email = Patterns.EMAIL_ADDRESS;
+        if(!pattern_email.matcher(et_email.getText().toString()).matches() && !et_email.getText().toString().isEmpty()){
+            et_email.setError(getString(R.string.error_email));
+            return false;
+        }else return true;
+    }
+
+    public boolean validarCBU() {
+        if(et_cbu.getText().toString().length() != 22  && !et_cbu.getText().toString().isEmpty()) {
+            et_cbu.setError(getString(R.string.error_cbu));
+            return false;
+        }else return true;
+    }
+
+    public boolean validarMes() {
+        if(!et_month.getText().toString().isEmpty() && (Integer.parseInt(et_month.getText().toString()) > 12 || Integer.parseInt(et_month.getText().toString()) == 0)) {
+            et_month.setError(getString(R.string.error_month));
+            return false;
+        }else return true;
+    }
+
+    public boolean validarContrasenia() {
+        if(!et_password.getText().toString().equals(et_password2.getText().toString())) {
+            et_password2.setError(getString(R.string.error_no_coinciden));
+            return false;
+        } else return true;
+    }
+
+    public void Validar(){
+        boolean validado = true;
+
+        //VALIDAR CARGA INICIAL
+        int cantidad_inicial = seekbar_amount.getProgress();
+        if(cantidad_inicial==0 && switch_load.isChecked()){
+            tv_errorcarga.setVisibility(View.VISIBLE);
+            validado = false;
+        }else{
+            tv_errorcarga.setVisibility(View.GONE);
         }
 
         //Validar campos obligatorios
@@ -255,7 +291,8 @@ public class MainActivity extends AppCompatActivity {
             et_year.startAnimation(shakeError());
             validado = false;
         }
-        if(validado) Toast.makeText(this, getString(R.string.exito), Toast.LENGTH_LONG).show();
+        if(validarContrasenia() && validarMes() && validarCBU() && validarEmail() && validarVencimiento() && validado)
+            Toast.makeText(this, getString(R.string.exito), Toast.LENGTH_LONG).show();
     }
 
     public TranslateAnimation shakeError() {

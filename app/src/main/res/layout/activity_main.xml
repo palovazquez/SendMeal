@@ -338,7 +338,7 @@
             android:fontFamily="@font/nunito_sans"
             android:text="@string/error_initial_amount"
             android:textColor="@color/colorError"
-            android:textSize="@dimen/layout_margin"
+            android:textSize="@dimen/layout_margin3"
             android:visibility="gone" />
 
         <CheckBox
