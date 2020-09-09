@@ -21,6 +21,8 @@
     <string name="seekbar">Crédito inicial</string>
     <string name="accept_terms">Aceptar los términos y condiciones</string>
     <string name="Register">REGISTRAR</string>
+    <string name="initial_amount">$ 0</string>
+
 
     <string name="error_no_coinciden">Las contraseñas no coinciden</string>
     <string name="error_initial_amount">El monto debe ser mayor a 0 pesos </string>

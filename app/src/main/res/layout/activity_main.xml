@@ -319,7 +319,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans"
-            android:text="$ 0"
+            android:text="@string/initial_amount"
             android:textSize="@dimen/tamaño_fuente2"
             android:visibility="gone" />
 
@@ -334,11 +334,10 @@
             android:id="@+id/tv_amounterror"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
             android:fontFamily="@font/nunito_sans"
             android:text="@string/error_initial_amount"
             android:textColor="@color/colorError"
-            android:textSize="@dimen/layout_margin3"
+            android:textSize="@dimen/tamaño_fuente3"
             android:visibility="gone" />
 
         <CheckBox

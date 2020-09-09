@@ -269,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(et_password.getText().toString().isEmpty()){
             et_password.startAnimation(shakeError());
+            et_password2.startAnimation(shakeError());
             validado = false;
         }
         if(et_card.getText().toString().isEmpty()) {
