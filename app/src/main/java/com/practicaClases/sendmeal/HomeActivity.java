@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+
 public class HomeActivity extends AppCompatActivity {
 //TODO faltan algunas dimensiones en main_activity.xml creo
 
@@ -16,21 +17,21 @@ public class HomeActivity extends AppCompatActivity {
 
 //TODO falta poner spinner para mes y año
 
-    //TODO Definir estilo para el menu???
+// TODO Definir estilo para el menu???
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_id);
-        //toolbar.setTitle(getString(R.string.toolbar_title));
+        //Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbarHome_id);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -47,14 +48,18 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
             case R.id.menuCreateItem_id:
-
+                Intent j = new Intent(this, NewDishActivity.class);
+                startActivity(j);
                 break;
             case R.id.menuListItems_id:
-
+                Intent k = new Intent(this, ListDishesActivity.class);
+                startActivity(k);
                 break;
 
         }
         return true;
     }
+
+
 
 }

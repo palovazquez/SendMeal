@@ -1,10 +1,19 @@
 package com.practicaClases.sendmeal.model;
 
 public class Plato {
-  int id_plato;
-  String titulo, descripcion;
-  Double precio;
-  Integer calorías;
+  private int id_plato;
+  private String titulo, descripcion;
+  private Double precio;
+  private Integer calorías;
+  private static int idCounter = 0;
+
+    public Plato(String titulo, String descripcion, Double precio, Integer calorías) {
+        this.id_plato = idCounter++;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.calorías = calorías;
+    }
 
     public int getId_plato() {
         return id_plato;

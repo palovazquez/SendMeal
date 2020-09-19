@@ -15,7 +15,7 @@
     <style name="Subtitulo" parent="@android:style/TextAppearance">
         <item name="android:textSize">@dimen/tamaño_fuente</item>
         <item name="android:fontFamily">@font/nunito_sans_extralight</item>
-        <item name="android:textColorHint">@color/colorHint</item>
+       <!-- <item name="android:textColorHint">@color/colorHint</item> -->
     </style>
 
 

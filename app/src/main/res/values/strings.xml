@@ -23,6 +23,7 @@
     <string name="accept_terms">Aceptar los términos y condiciones</string>
     <string name="Register">REGISTRAR</string>
     <string name="initial_amount">$ 0</string>
+    <string name="toolbarMain_title">Registrarse</string>
 
     <string name="error_no_coinciden">Las contraseñas no coinciden</string>
     <string name="error_initial_amount">El monto debe ser mayor a 0 pesos </string>
@@ -41,9 +42,18 @@
     <string name="menu_listitems">Lista de items</string>
 
     <!-- New Dish Activity -->
+    <string name="new_dish">"Complete los datos"</string>
     <string name="dish_name">"Nombre del plato"</string>
     <string name="dish_description">"Descripción"</string>
     <string name="dish_price">"Precio"</string>
     <string name="dish_calories">"Calorías"</string>
+    <string name="dish_save">"Guardar"</string>
+    <string name="error_incomplete">"Complete todos los campos"</string>
+    <string name="successful_load">Carga exitosa</string>
+    <string name="toolbarNewDish_title">Agregar plato</string>
+
+    <!-- List Dishes Activity -->
+    <string name="toolbarListDishes_title">Platos</string>
+
 
 </resources>

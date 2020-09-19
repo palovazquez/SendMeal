@@ -8,7 +8,7 @@
     tools:context=".HomeActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_id"
+        android:id="@+id/toolbarHome_id"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
