@@ -1,4 +1,5 @@
 <resources>
+    <!-- Main Activity -->
     <string name="app_name">Send Meal</string>
     <string name="required_fields1">* Campos obligatorios</string>
     <string name="required_fields2">*</string>
@@ -23,7 +24,6 @@
     <string name="Register">REGISTRAR</string>
     <string name="initial_amount">$ 0</string>
 
-
     <string name="error_no_coinciden">Las contraseñas no coinciden</string>
     <string name="error_initial_amount">El monto debe ser mayor a 0 pesos </string>
     <string name="error_email">Email incorrecto </string>
@@ -31,4 +31,19 @@
     <string name="error_month">Ingrese un mes válido</string>
     <string name="error_cbu">Ingrese un CBU válido</string>
     <string name="exito">Registro exitoso</string>
+
+
+    <!-- Home Activity -->
+    <string name="menu_welcome">Bienvenido</string>
+    <string name="toolbar_title">Menú</string>
+    <string name="menu_register">Registrarme</string>
+    <string name="menu_createitem">Crear item</string>
+    <string name="menu_listitems">Lista de items</string>
+
+    <!-- New Dish Activity -->
+    <string name="dish_name">"Nombre del plato"</string>
+    <string name="dish_description">"Descripción"</string>
+    <string name="dish_price">"Precio"</string>
+    <string name="dish_calories">"Calorías"</string>
+
 </resources>
