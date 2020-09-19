@@ -52,10 +52,30 @@ public class NewDishActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!validarCampos()){
                     Toast.makeText(getApplicationContext(), getString(R.string.error_incomplete), Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Plato plato = new Plato(et_name.getText().toString(),et_description.getText().toString(), Double.parseDouble(et_price.getText().toString()), Integer.parseInt(et_calories.getText().toString()));
-                    Toast.makeText(getApplicationContext(), getString(R.string.successful_load), Toast.LENGTH_LONG).show();
+                } else {
+                    Plato plato = new Plato(et_name.getText().toString(), et_description.getText().toString(), Double.parseDouble(et_price.getText().toString()), Integer.parseInt(et_calories.getText().toString()));
+                    if(!ListDishesActivity.getListaPlatos().isEmpty()){
+                        int i = 0;
+                        boolean coincide = false;
+                        int tamaño = ListDishesActivity.getListaPlatos().size();
+
+                        while(!(tamaño==i) && !coincide){
+                            if(ListDishesActivity.getListaPlatos().get(i).equals(plato))
+                                coincide = true;
+                            i++;
+                        }
+                        if(coincide)
+                            Toast.makeText(getApplicationContext(), getString(R.string.error_duplicate), Toast.LENGTH_LONG).show();
+                        else{
+                            esCorrecto(plato);
+                        }
+
+                    }
+                    else {
+                        esCorrecto(plato);
+                    }
+
+
                 }
             }
         });
@@ -63,7 +83,15 @@ public class NewDishActivity extends AppCompatActivity {
 
     }
 
+    public void esCorrecto(Plato plato){
+            Toast.makeText(getApplicationContext(), getString(R.string.successful_load), Toast.LENGTH_LONG).show();
+            ListDishesActivity.getListaPlatos().add(plato);
+            et_name.setText("");
+            et_description.setText("");
+            et_calories.setText("");
+            et_price.setText("");
 
+    }
 
 
     public boolean validarCampos() {

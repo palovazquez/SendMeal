@@ -1,5 +1,7 @@
 package com.practicaClases.sendmeal.model;
 
+import java.util.Objects;
+
 public class Plato {
   private int id_plato;
   private String titulo, descripcion;
@@ -14,6 +16,18 @@ public class Plato {
         this.precio = precio;
         this.calorías = calorías;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Plato)) return false;
+        Plato plato = (Plato) o;
+        return getTitulo().equals(plato.getTitulo()) &&
+                getDescripcion().equals(plato.getDescripcion()) &&
+                getPrecio().equals(plato.getPrecio()) &&
+                getCalorías().equals(plato.getCalorías());
+    }
+
 
     public int getId_plato() {
         return id_plato;

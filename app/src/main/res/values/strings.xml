@@ -49,11 +49,14 @@
     <string name="dish_calories">"Calorías"</string>
     <string name="dish_save">"Guardar"</string>
     <string name="error_incomplete">"Complete todos los campos"</string>
+    <string name="error_duplicate">"El plato ya existe"</string>
     <string name="successful_load">Carga exitosa</string>
     <string name="toolbarNewDish_title">Agregar plato</string>
 
     <!-- List Dishes Activity -->
     <string name="toolbarListDishes_title">Platos</string>
+
+
 
 
 </resources>

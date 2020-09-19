@@ -12,7 +12,9 @@
     <dimen name="layout_margin5">30dp</dimen>
 
 
-
+    <!--CardView-->
+    <dimen name="cardView_ArribaAbajo">15dp</dimen>
+    <dimen name="cardView_Inicio">20dp</dimen>
 
 
 

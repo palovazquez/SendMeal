@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 
 public class HomeActivity extends AppCompatActivity {
-//TODO faltan algunas dimensiones en main_activity.xml creo
+//TODO faltan algunas dimensiones en main_activity.xml ---CARDVIEW YA ESTAN
 
 //TODO faltaria definir un estilo con la fuente, para no tener que ponerla en cada view, con dimensiones etc
 
