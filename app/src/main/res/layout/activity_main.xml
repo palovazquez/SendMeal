@@ -255,15 +255,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView2_FechaVencimiento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_margin"
-                android:fontFamily="@font/nunito_sans"
-                android:text="@string/expiration_date"
-                android:textSize="@dimen/tamaño_fuente2" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -278,38 +269,47 @@
                     android:textColor="@color/colorCamposObligatorios"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/expiration_month_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:fontFamily="@font/nunito_sans_extralight"
-                    android:hint="@string/expiration_month"
-                    android:inputType="number"
-                    android:textSize="@dimen/tamaño_fuente" />
-
                 <TextView
-                    android:id="@+id/tv_camposobligatorios8"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textView2_FechaVencimiento"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/required_fields2"
-                    android:textColor="@color/colorCamposObligatorios"
-                    android:textSize="18sp" />
+                    android:layout_marginLeft="@dimen/layout_margin"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="@string/expiration_date"
+                    android:textSize="@dimen/tamaño_fuente2" />
 
-                <EditText
-                    android:id="@+id/expiration_year_id"
-                    android:layout_width="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerMes_id"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:enabled="false"
-                    android:fontFamily="@font/nunito_sans_extralight"
-                    android:hint="@string/expiration_year"
-                    android:inputType="number" />
+                    android:layout_gravity="center"/>
+
+                <Spinner
+                    android:id="@+id/spinnerAño_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_spinnererror"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans"
+                android:text="@string/error_expirationdate"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/tamaño_fuente2"
+                android:visibility="gone"/>
+
 
             <EditText
                 android:id="@+id/cbu_id"
@@ -365,7 +365,7 @@
                 android:fontFamily="@font/nunito_sans"
                 android:text="@string/error_initial_amount"
                 android:textColor="@color/colorError"
-                android:textSize="@dimen/tamaño_fuente3"
+                android:textSize="@dimen/tamaño_fuente2"
                 android:visibility="gone" />
 
             <CheckBox

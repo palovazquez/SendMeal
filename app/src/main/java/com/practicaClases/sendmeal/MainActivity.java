@@ -13,16 +13,19 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
@@ -34,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
     Button button_register;
     SeekBar seekbar_amount;
     Switch switch_load;
-    TextView tv_carga, tv_errorcarga;
+    TextView tv_carga, tv_errorcarga, tv_errorFechaVencimiento;
+    Spinner s_mes, s_año;
+
+    //Lista de años Spinner
+    ArrayList<String> years = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
         et_password2 = findViewById(R.id.password2_id);
         et_card = findViewById(R.id.cardnumber_id);
         et_ccv = findViewById(R.id.ccv_id);
-        et_month = findViewById(R.id.expiration_month_id);
-        et_year = findViewById(R.id.expiration_year_id);
+        //et_month = findViewById(R.id.expiration_month_id);
+        //et_year = findViewById(R.id.expiration_year_id);
         et_cbu = findViewById(R.id.cbu_id);
         et_aliascbu = findViewById(R.id.alias_cbu_id);
         rb_credit = findViewById(R.id.rb_credit_id);
@@ -76,6 +83,27 @@ public class MainActivity extends AppCompatActivity {
         switch_load = findViewById(R.id.switch_loadmoney_id);
         tv_carga = findViewById(R.id.tv_carga_id);
         tv_errorcarga = findViewById(R.id.tv_amounterror);
+        tv_errorFechaVencimiento = findViewById(R.id.tv_spinnererror);
+        s_año = findViewById(R.id.spinnerAño_id);
+        s_mes = findViewById(R.id.spinnerMes_id);
+
+
+        //ADAPTER SPINNER-MES
+        ArrayAdapter<CharSequence> adapterMes = ArrayAdapter.createFromResource(this,R.array.meses, R.layout.spinner_item);
+        s_mes.setAdapter(adapterMes);
+
+
+        //ADAPTER SPINNER-AÑO
+
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        for (int i = thisYear; i <= thisYear+20; i++) {
+            years.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> adapterAño = new ArrayAdapter<String>(this, R.layout.spinner_item, years);
+        s_año.setAdapter(adapterAño);
+
+
 
         //HABILITAR Y DESHABILITAR CCV, MES Y AÑO SEGÚN "NRO DE TARJETA"
         et_card.addTextChangedListener(new TextWatcher() {
@@ -88,10 +116,11 @@ public class MainActivity extends AppCompatActivity {
                 //Si se había cargado texto en los campos y luego se borra el nro de tarjeta, borra los campos tmb:
                 if(!et_ccv.getText().toString().isEmpty() && card_string.isEmpty())
                     et_ccv.setText("");
-                if(!et_month.getText().toString().isEmpty() && card_string.isEmpty())
+                /*if(!et_month.getText().toString().isEmpty() && card_string.isEmpty())
                     et_month.setText("");
                 if(!et_year.getText().toString().isEmpty() && card_string.isEmpty())
-                    et_year.setText("");
+                    et_year.setText("");*/
+
                 //Des/habilitar campos
                 et_ccv.setEnabled(!card_string.isEmpty());
                 et_month.setEnabled(!card_string.isEmpty());
@@ -130,19 +159,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //CHEQUEAR MES VÁLIDO (1->12)
-        et_month.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    validarMes();
-                    validarVencimiento();
-                }
-            }
-        });
 
         //VALIDAR VENCIMIENTO
-        et_year.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        s_año.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
@@ -220,27 +240,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public boolean validarVencimiento() {
-        if(!et_month.getText().toString().isEmpty() && !et_year.getText().toString().isEmpty()){
-            Calendar fecha_minima = Calendar.getInstance();
-            fecha_minima.add(Calendar.MONTH, 3);
 
-            Calendar fecha_ingresada = Calendar.getInstance();
-            fecha_ingresada.set(Calendar.YEAR, Integer.parseInt(et_year.getText().toString()));
-            fecha_ingresada.set(Calendar.MONTH, Integer.parseInt(et_month.getText().toString())-1);
-            fecha_ingresada.set(Calendar.DATE, fecha_minima.DATE);
+        Calendar fecha_minima = Calendar.getInstance();
+        fecha_minima.add(Calendar.MONTH, 3);
 
-            if(fecha_ingresada.before(fecha_minima)) {
-                et_year.setError(getString(R.string.error_expirationdate));
-                et_month.setError(getString(R.string.error_expirationdate));
-                return false;
-            }else{
-                et_year.setError(null);
-                et_month.setError(null);
-                return true;
-            }
-        }return false;
+        Calendar fecha_ingresada = Calendar.getInstance();
+
+        fecha_ingresada.set(Calendar.YEAR, Integer.parseInt(years.get(s_año.getSelectedItemPosition())));
+        fecha_ingresada.set(Calendar.MONTH, s_mes.getSelectedItemPosition());
+        fecha_ingresada.set(Calendar.DATE, fecha_minima.DATE);
+
+        if (fecha_ingresada.before(fecha_minima)) {
+            tv_errorFechaVencimiento.setVisibility(View.VISIBLE);
+            return false;
+        } else {
+            et_year.setError(null);
+            et_month.setError(null);
+            return true;
+        }
     }
 
     public boolean validarEmail() {
@@ -258,12 +276,12 @@ public class MainActivity extends AppCompatActivity {
         }else return true;
     }
 
-    public boolean validarMes() {
+    /*public boolean validarMes() {
         if(!et_month.getText().toString().isEmpty() && (Integer.parseInt(et_month.getText().toString()) > 12 || Integer.parseInt(et_month.getText().toString()) == 0)) {
             et_month.setError(getString(R.string.error_month));
             return false;
         }else return true;
-    }
+    }*/
 
     public boolean validarContrasenia() {
         if(!et_password.getText().toString().equals(et_password2.getText().toString())) {
@@ -278,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
         //VALIDAR CARGA INICIAL
         int cantidad_inicial = seekbar_amount.getProgress();
         if(cantidad_inicial==0 && switch_load.isChecked()){
+
             tv_errorcarga.setVisibility(View.VISIBLE);
             validado = false;
         }else{
@@ -306,15 +325,15 @@ public class MainActivity extends AppCompatActivity {
             et_ccv.startAnimation(shakeError());
             validado = false;
         }
-        if(et_month.getText().toString().isEmpty()) {
+        /*if(et_month.getText().toString().isEmpty()) {
             et_month.startAnimation(shakeError());
             validado = false;
         }
         if(et_year.getText().toString().isEmpty()) {
             et_year.startAnimation(shakeError());
             validado = false;
-        }
-        if(validarContrasenia() && validarMes() && validarCBU() && validarEmail() && validarVencimiento() && validado)
+        }*/
+        if(validarContrasenia() && validarCBU() && validarEmail() && validarVencimiento() && validado)
             Toast.makeText(this, getString(R.string.exito), Toast.LENGTH_LONG).show();
     }
 

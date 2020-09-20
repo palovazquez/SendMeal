@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_food_background" />
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:endColor="#00FFFFFF"
+                android:startColor="#99FFFFFF"/>
+        </shape>
+    </item>
+</layer-list>

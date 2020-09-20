@@ -29,7 +29,6 @@
     <string name="error_initial_amount">El monto debe ser mayor a 0 pesos </string>
     <string name="error_email">Email incorrecto </string>
     <string name="error_expirationdate">La fecha de vencimiento debe ser mayor a 3 meses</string>
-    <string name="error_month">Ingrese un mes válido</string>
     <string name="error_cbu">Ingrese un CBU válido</string>
     <string name="exito">Registro exitoso</string>
 
