@@ -15,8 +15,6 @@ public class HomeActivity extends AppCompatActivity {
 
 //TODO faltaria definir un estilo con la fuente, para no tener que ponerla en cada view, con dimensiones etc
 
-//TODO falta poner spinner para mes y año
-
 // TODO Definir estilo para el menu???
 
 
@@ -24,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        getWindow().setBackgroundDrawableResource(R.drawable.orange_backgroundimage);
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarHome_id);
         setSupportActionBar(toolbar);

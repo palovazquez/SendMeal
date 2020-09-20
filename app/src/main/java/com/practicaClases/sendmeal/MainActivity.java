@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -24,7 +22,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Pattern;
@@ -49,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbarMain_id);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -63,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         et_name = findViewById(R.id.name_id);
         et_surname = findViewById(R.id.surname_id);
         et_email = findViewById(R.id.email_id);
@@ -71,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         et_password2 = findViewById(R.id.password2_id);
         et_card = findViewById(R.id.cardnumber_id);
         et_ccv = findViewById(R.id.ccv_id);
-        //et_month = findViewById(R.id.expiration_month_id);
-        //et_year = findViewById(R.id.expiration_year_id);
         et_cbu = findViewById(R.id.cbu_id);
         et_aliascbu = findViewById(R.id.alias_cbu_id);
         rb_credit = findViewById(R.id.rb_credit_id);
@@ -94,9 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //ADAPTER SPINNER-AÑO
-
         int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-
         for (int i = thisYear; i <= thisYear+20; i++) {
             years.add(Integer.toString(i));
         }
@@ -161,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         //VALIDAR VENCIMIENTO
-
         s_año.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -236,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
                 Validar();
             }
         });
-
     }
 
 
@@ -246,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
         fecha_minima.add(Calendar.MONTH, 3);
 
         Calendar fecha_ingresada = Calendar.getInstance();
-
         fecha_ingresada.set(Calendar.YEAR, Integer.parseInt(years.get(s_año.getSelectedItemPosition())));
         fecha_ingresada.set(Calendar.MONTH, s_mes.getSelectedItemPosition());
         fecha_ingresada.set(Calendar.DATE, fecha_minima.DATE);
@@ -255,8 +244,7 @@ public class MainActivity extends AppCompatActivity {
             tv_errorFechaVencimiento.setVisibility(View.VISIBLE);
             return false;
         } else {
-            et_year.setError(null);
-            et_month.setError(null);
+            tv_errorFechaVencimiento.setVisibility(View.GONE);
             return true;
         }
     }
@@ -275,13 +263,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }else return true;
     }
-
-    /*public boolean validarMes() {
-        if(!et_month.getText().toString().isEmpty() && (Integer.parseInt(et_month.getText().toString()) > 12 || Integer.parseInt(et_month.getText().toString()) == 0)) {
-            et_month.setError(getString(R.string.error_month));
-            return false;
-        }else return true;
-    }*/
 
     public boolean validarContrasenia() {
         if(!et_password.getText().toString().equals(et_password2.getText().toString())) {
@@ -325,14 +306,6 @@ public class MainActivity extends AppCompatActivity {
             et_ccv.startAnimation(shakeError());
             validado = false;
         }
-        /*if(et_month.getText().toString().isEmpty()) {
-            et_month.startAnimation(shakeError());
-            validado = false;
-        }
-        if(et_year.getText().toString().isEmpty()) {
-            et_year.startAnimation(shakeError());
-            validado = false;
-        }*/
         if(validarContrasenia() && validarCBU() && validarEmail() && validarVencimiento() && validado)
             Toast.makeText(this, getString(R.string.exito), Toast.LENGTH_LONG).show();
     }

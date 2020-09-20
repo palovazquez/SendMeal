@@ -29,7 +29,7 @@ public class ListDishesActivity extends AppCompatActivity {
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarListDishes_id);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
