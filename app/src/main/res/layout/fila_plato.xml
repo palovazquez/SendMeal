@@ -35,32 +35,39 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_dishName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_sans"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/cardView_Inicio"
                     android:layout_marginTop="@dimen/cardView_ArribaAbajo"
                     android:layout_marginEnd="@dimen/cardView_Inicio"
                     android:layout_marginBottom="@dimen/cardView_ArribaAbajo"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:fontFamily="@font/nunito_sans"
+                    android:gravity="start"
+                    android:text="TextView"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/tv_dishPrice"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_sans"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/layout_margin4"
                     android:layout_marginTop="@dimen/layout_margin3"
                     android:layout_marginEnd="@dimen/layout_margin"
                     android:layout_marginBottom="@dimen/layout_margin3"
-                    android:layout_weight="3"
-                    android:text="TextView" />
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nunito_sans"
+                    android:gravity="end"
+                    android:text="TextView"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

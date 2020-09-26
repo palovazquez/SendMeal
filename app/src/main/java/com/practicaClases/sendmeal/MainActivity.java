@@ -307,10 +307,11 @@ public class MainActivity extends AppCompatActivity {
             et_ccv.startAnimation(shakeError());
             validado = false;
         }
-        if(validarContrasenia() && validarCBU() && validarEmail() && validarVencimiento() && validado)
+        if(validarContrasenia() && validarCBU() && validarEmail() && validarVencimiento() && validado) {
             Toast.makeText(this, getString(R.string.exito), Toast.LENGTH_LONG).show();
             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(i);
+        }
 
 
     }
