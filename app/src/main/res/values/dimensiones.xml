@@ -3,15 +3,18 @@
     <dimen name="tamaño_fuente">18sp</dimen>
     <dimen name="tamaño_fuente2">14sp</dimen>
     <dimen name="tamaño_fuente3">15sp</dimen>
+    <dimen name="tamaño_fuente4">30sp</dimen>
 
     <dimen name="layout_margin">10dp</dimen>
     <dimen name="layout_margin2">5dp</dimen>
     <dimen name="layout_margin3">15dp</dimen>
     <dimen name="layout_margin4">20dp</dimen>
     <dimen name="layout_margin5">30dp</dimen>
+    <dimen name="layout_marginBienvenido">50dp</dimen>
 
-
-
+    <!--CardView-->
+    <dimen name="cardView_ArribaAbajo">15dp</dimen>
+    <dimen name="cardView_Inicio">20dp</dimen>
 
 
 

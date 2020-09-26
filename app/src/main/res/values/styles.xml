@@ -1,17 +1,54 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Campos" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/tamaño_fuente</item>
+        <item name="android:fontFamily">@font/nunito_sans_extralight</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+    </style>
+
+    <style name="Subtitulo" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/tamaño_fuente</item>
+        <item name="android:fontFamily">@font/nunito_sans_extralight</item>
+       <!-- <item name="android:textColorHint">@color/colorHint</item> -->
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--  <style name="MenuTheme" parent="Theme.AppCompat.Light">
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/nunito_sans_black_italic</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:text">@string/toolbar_title</item>
+    </style> 
+
+
 
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@android:style/TextAppearance">
 
-        <item name="android:textSize">20dp</item>
-        <item name="android:fontFamily">@font/nunito_sans_black_italic</item>
-    </style>
+         <item name="android:textSize">20dp</item>
+         <item name="android:fontFamily">@font/nunito_sans_black_italic</item>
+     </style>
+-->
 
-</resources>
+ </resources>
