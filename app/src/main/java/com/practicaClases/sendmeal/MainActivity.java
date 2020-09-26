@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //Des/habilitar campos
                 et_ccv.setEnabled(!card_string.isEmpty());
-                et_month.setEnabled(!card_string.isEmpty());
-                et_year.setEnabled(!card_string.isEmpty());
+                s_año.setEnabled(!card_string.isEmpty());
+                s_mes.setEnabled(!card_string.isEmpty());
             }
 
             @Override public void afterTextChanged(Editable editable) {}
@@ -225,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Validar();
+
             }
         });
     }
@@ -308,6 +309,10 @@ public class MainActivity extends AppCompatActivity {
         }
         if(validarContrasenia() && validarCBU() && validarEmail() && validarVencimiento() && validado)
             Toast.makeText(this, getString(R.string.exito), Toast.LENGTH_LONG).show();
+            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(i);
+
+
     }
 
     public TranslateAnimation shakeError() {

@@ -10,7 +10,7 @@
     <dimen name="layout_margin3">15dp</dimen>
     <dimen name="layout_margin4">20dp</dimen>
     <dimen name="layout_margin5">30dp</dimen>
-
+    <dimen name="layout_marginBienvenido">50dp</dimen>
 
     <!--CardView-->
     <dimen name="cardView_ArribaAbajo">15dp</dimen>

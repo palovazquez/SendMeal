@@ -53,7 +53,7 @@ public class NewDishActivity extends AppCompatActivity {
                 if(!validarCampos()){
                     Toast.makeText(getApplicationContext(), getString(R.string.error_incomplete), Toast.LENGTH_LONG).show();
                 } else {
-                    Plato plato = new Plato(et_name.getText().toString(), et_description.getText().toString(), Double.parseDouble(et_price.getText().toString()), Integer.parseInt(et_calories.getText().toString()));
+                    Plato plato = new Plato(et_name.getText().toString(), et_description.getText().toString(), Double.parseDouble(et_price.getText().toString()), (int) Double.parseDouble(et_calories.getText().toString()));
                     if(!ListDishesActivity.getListaPlatos().isEmpty()){
                         int i = 0;
                         boolean coincide = false;

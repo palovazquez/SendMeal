@@ -22,7 +22,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        getWindow().setBackgroundDrawableResource(R.drawable.orange_backgroundimage);
+        //getWindow().setBackgroundDrawableResource(R.drawable.);
+
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarHome_id);
         setSupportActionBar(toolbar);

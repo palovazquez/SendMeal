@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_activity_main"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".NewDishActivity">
 
@@ -60,6 +60,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_sans"
                     android:gravity="center"
                     android:text="@string/new_dish" />
 
@@ -79,6 +80,7 @@
                     android:id="@+id/tv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_sans"
                     android:hint="@string/dish_description" />
                 <!--android:theme="@style/Subtitulo" /> -->
 
@@ -105,7 +107,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/dish_price"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:theme="@style/Campos" />
 
                     <EditText
@@ -115,7 +117,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/dish_calories"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:theme="@style/Campos" />
 
                 </LinearLayout>

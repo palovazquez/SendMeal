@@ -59,7 +59,7 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
         Plato plato = mDataset.get(position);
 
         holder.tv_name.setText(plato.getTitulo());
-        holder.tv_price.setText(Double.toString(plato.getPrecio()));
+        holder.tv_price.setText("$ " + Double.toString(plato.getPrecio()));
         holder.i_dish.setImageResource(R.drawable.food2);
 
 
