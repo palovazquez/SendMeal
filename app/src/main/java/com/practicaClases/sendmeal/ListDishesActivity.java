@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.practicaClases.sendmeal.model.AdapterDishes;
 import com.practicaClases.sendmeal.model.Plato;
@@ -17,6 +21,8 @@ import java.util.List;
 
 public class ListDishesActivity extends AppCompatActivity {
 
+
+    ImageView botonAgregar;
 
     private static List<Plato> listaPlatos = new ArrayList<Plato>();;
 
@@ -41,15 +47,41 @@ public class ListDishesActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.reyclerView_id);
+        recyclerView = (RecyclerView) findViewById(R.id.reyclerViewListDishes_id);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-      ///  listaPlatos = new ArrayList<Plato>();
+
         AdapterDishes adapter = new AdapterDishes(listaPlatos, this);
         recyclerView.setAdapter(adapter);
+
+
+        botonAgregar = findViewById(R.id.imageButton);
+        botonAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentResultado = new Intent();
+                intentResultado.putExtra("")
+
+
+            }
+        });
+
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_listdishes, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent i = new Intent(this, PedidoActivity.class);
+        startActivity(i);
+        return true;
+    }
 
     public static List<Plato> getListaPlatos() {
         return listaPlatos;

@@ -20,7 +20,7 @@ import java.util.List;
 public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewHolder> {
     private List<Plato> mDataset;
     private AppCompatActivity context;
-    // Provide a suitable constructor (depends on the kind of dataset)
+
 
     public AdapterDishes(List<Plato> myDataset, AppCompatActivity act) {
         mDataset = myDataset;
@@ -38,6 +38,7 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
             tv_name = v.findViewById(R.id.tv_dishName);
             tv_price = v.findViewById(R.id.tv_dishPrice);
             i_dish = v.findViewById(R.id.imageDish_id);
+
 
         }
 

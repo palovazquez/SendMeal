@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListDishesActivity"></activity>
+        <activity android:name=".PedidoActivity"></activity>
+        <activity android:name=".ListDishesActivity" />
         <activity android:name=".NewDishActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity">

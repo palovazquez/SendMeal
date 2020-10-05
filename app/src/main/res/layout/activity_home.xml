@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="227dp"
         android:layout_marginTop="200dp"
-        app:srcCompat="@drawable/este" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/tv_welcome"

@@ -55,7 +55,12 @@
     <!-- List Dishes Activity -->
     <string name="toolbarListDishes_title">Platos</string>
 
-
-
-
+    <!-- Pedido Activity Activity -->
+    <string name="menu_newOrder">Nuevo pedido</string>
+    <string name="adress">Dirección</string>
+    <string name="toolbarPedido_title">Nuevo pedido</string>
+    <string name="tv_delivery">Método de entrega</string>
+    <string name="rbEnvio">Envio</string>
+    <string name="rbTakeaway">Take away</string>
+    <string name="button_AddDish">Agregar platos</string>
 </resources>

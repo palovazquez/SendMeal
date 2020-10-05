@@ -3,11 +3,11 @@ package com.practicaClases.sendmeal.model;
 import java.util.Objects;
 
 public class Plato {
-  private int id_plato;
+  private Integer id_plato;
   private String titulo, descripcion;
   private Double precio;
   private Integer calorías;
-  private static int idCounter = 0;
+  private static Integer idCounter = 0;
 
     public Plato(String titulo, String descripcion, Double precio, Integer calorías) {
         this.id_plato = idCounter++;

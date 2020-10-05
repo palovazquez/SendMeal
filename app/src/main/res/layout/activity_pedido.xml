@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".NewDishActivity">
-
+    android:background="@drawable/background"
+    tools:context=".PedidoActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarNewDish_id"
+        android:id="@+id/toolbarPedido_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -19,12 +18,12 @@
         android:theme="?attr/actionBarTheme">
 
         <TextView
-            android:id="@+id/toolbarNewDish_title"
+            android:id="@+id/toolbarPedido_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nunito_sans_black_italic"
-            android:text="@string/toolbarNewDish_title"
+            android:text="@string/toolbarPedido_title"
             android:textColor="@color/colorTitle"
             android:textSize="@dimen/tamaño_fuente4" />
     </androidx.appcompat.widget.Toolbar>
@@ -64,71 +63,81 @@
 
 
                 <EditText
-                    android:id="@+id/dishName_id"
+                    android:id="@+id/email_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/layout_margin3"
-                    android:layout_marginBottom="@dimen/layout_margin4"
                     android:ems="10"
-                    android:hint="@string/dish_name"
-                    android:inputType="textPersonName"
-                    android:theme="@style/Campos" />
-
-                <TextView
-                    android:id="@+id/tv_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_sans"
-                    android:hint="@string/dish_description" />
-                <!--android:theme="@style/Subtitulo" /> -->
+                    android:fontFamily="@font/nunito_sans_extralight"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:textSize="@dimen/tamaño_fuente" />
 
                 <EditText
-                    android:id="@+id/dishDescription_id"
+                    android:id="@+id/adress_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:theme="@style/Campos" />
+                    android:fontFamily="@font/nunito_sans_extralight"
+                    android:hint="@string/adress"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/tamaño_fuente" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_eleccion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/layout_margin5"
-                    android:layout_marginBottom="@dimen/layout_margin5"
+                    android:layout_marginLeft="@dimen/layout_margin2"
+                    android:layout_marginBottom="@dimen/layout_margin"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="@string/tv_delivery"
+                    android:textSize="@dimen/tamaño_fuente2" />
+
+                <RadioGroup
+                    android:id="@+id/rg_radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/dishPrice_id"
+                    <RadioButton
+                        android:id="@+id/envio_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="10"
-                        android:hint="@string/dish_price"
-                        android:inputType="numberDecimal"
-                        android:theme="@style/Campos" />
+                        android:fontFamily="@font/nunito_sans_extralight"
+                        android:text="@string/rbEnvio"
+                        android:textSize="@dimen/tamaño_fuente2" />
 
-                    <EditText
-                        android:id="@+id/dishCalories_id"
+                    <RadioButton
+                        android:id="@+id/takeAway_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ems="10"
-                        android:hint="@string/dish_calories"
-                        android:inputType="numberDecimal"
-                        android:theme="@style/Campos" />
+                        android:fontFamily="@font/nunito_sans_extralight"
+                        android:text="@string/rbTakeaway"
+                        android:textSize="@dimen/tamaño_fuente2" />
 
-                </LinearLayout>
+                </RadioGroup>
+
+                <ListView
+                    android:id="@+id/lv_dishes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/button_saveDish_id"
+                    android:id="@+id/button_addDishes_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dish_save" />
+                    android:layout_marginTop="@dimen/layout_margin"
+                    android:backgroundTint="@color/colorAccent"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="@string/button_AddDish"
+                    android:textSize="@dimen/tamaño_fuente" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
+
+
 
 </LinearLayout>
