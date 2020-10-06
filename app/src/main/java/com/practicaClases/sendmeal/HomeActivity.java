@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.menuListItems_id:
                 Intent k = new Intent(this, ListDishesActivity.class);
+                k.putExtra("source", "HomeActivity");
                 startActivity(k);
                 break;
 

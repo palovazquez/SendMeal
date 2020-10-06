@@ -70,17 +70,15 @@
                     android:textSize="@dimen/tamaño_fuente"  />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/imageButton_addDish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="transparent"
                     android:layout_marginStart="@dimen/layout_margin4"
                     android:layout_marginTop="@dimen/layout_margin3"
                     android:layout_marginEnd="@dimen/layout_margin"
                     android:layout_marginBottom="@dimen/layout_margin3"
                     android:layout_weight="0"
-                    android:enabled="false"
                     android:visibility="gone"
                     app:srcCompat="@drawable/add_dish" />
 

@@ -2,9 +2,13 @@ package com.practicaClases.sendmeal.model;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,11 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.practicaClases.sendmeal.R;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewHolder> {
     private List<Plato> mDataset;
     private AppCompatActivity context;
+
 
 
     public AdapterDishes(List<Plato> myDataset, AppCompatActivity act) {
@@ -31,6 +38,9 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
         CardView card;
         TextView tv_name, tv_price;
         ImageView i_dish;
+        ImageButton botonAgregar;
+
+
 
         public PlatoViewHolder(View v) {
             super(v);
@@ -38,12 +48,11 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
             tv_name = v.findViewById(R.id.tv_dishName);
             tv_price = v.findViewById(R.id.tv_dishPrice);
             i_dish = v.findViewById(R.id.imageDish_id);
-
+            botonAgregar = v.findViewById(R.id.imageButton_addDish);
 
         }
 
     }
-
 
     @NonNull
     @Override
@@ -55,7 +64,7 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
 
     @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
     @Override
-    public void onBindViewHolder(@NonNull AdapterDishes.PlatoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterDishes.PlatoViewHolder holder, final int position) {
 
         Plato plato = mDataset.get(position);
 
@@ -63,6 +72,16 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
         holder.tv_price.setText("$ " + Double.toString(plato.getPrecio()));
         holder.i_dish.setImageResource(R.drawable.food2);
 
+        holder.botonAgregar.setOnClickListener(new View.OnClickListener() { //////////////
+            @Override
+            public void onClick(View v) {
+                Intent intentResultado = new Intent();
+                intentResultado.putExtra("idPlato", mDataset.get(position).getId_plato());
+                context.setResult(Activity.RESULT_OK, intentResultado);
+                context.finish();
+
+            }
+        });
 
     }
 
@@ -70,4 +89,6 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
     public int getItemCount() {
         return mDataset.size();
     }
+
+
 }

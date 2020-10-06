@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.practicaClases.sendmeal.HomeActivity;
@@ -22,12 +23,15 @@ import com.practicaClases.sendmeal.MainActivity;
 import com.practicaClases.sendmeal.R;
 import com.practicaClases.sendmeal.model.AdapterOrder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoActivity extends AppCompatActivity {
 
     private static final int CODIGO_BUSCAR_PLATO = 987;
     ListView lvPedidos;
+    //List<ArrayList<String>> listaPlatos = new ArrayList<>();
+    ArrayList<String> listaPlatos = new ArrayList<>();
     Button addDish;
 
 
@@ -47,14 +51,9 @@ public class PedidoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), ListDishesActivity.class);
                 startActivity(i);
+
             }
         });
-
-        lvPedidos = findViewById(R.id.lv_dishes);
-
-       /* AdapterOrder adapter = new AdapterOrder( this, --);
-
-        lvPedidos.setAdapter(adapter);*/
 
         addDish = findViewById(R.id.button_addDishes_id);
 
@@ -62,24 +61,23 @@ public class PedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent (PedidoActivity.this, ListDishesActivity.class);
-                i.putExtra("habilitarBoton", true);
+                i.putExtra("source", "PedidoActivity");
                 startActivityForResult(i, CODIGO_BUSCAR_PLATO);
             }
         });
 
-
-
+        //Adapter
+        lvPedidos = findViewById(R.id.lv_dishes);
+        AdapterOrder adapter = new AdapterOrder( listaPlatos, this);
+        lvPedidos.setAdapter((ListAdapter) adapter);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
             if(resultCode== Activity.RESULT_OK){
                 if(requestCode==CODIGO_BUSCAR_PLATO){
-
-                    //------------------------
-
+                    listaPlatos.add(data.getExtras().getString("listaPlato"));
                 }
             }
     }

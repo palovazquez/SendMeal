@@ -5,12 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.practicaClases.sendmeal.model.AdapterDishes;
@@ -22,11 +25,12 @@ import java.util.List;
 public class ListDishesActivity extends AppCompatActivity {
 
 
-    ImageView botonAgregar;
+    //TODO ver si al salir de la lista de pedidos, una vez que ya se habilito el boton, queda habilitado o no.
 
     private static List<Plato> listaPlatos = new ArrayList<Plato>();;
 
     RecyclerView recyclerView;
+    ImageButton botonAgregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +56,22 @@ public class ListDishesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
+        //Mostrar botón para agregar el plato al pedido
+        //String source = getIntent().getStringExtra("source");
+        /*final LayoutInflater factory = getLayoutInflater();
+        final View textEntryView = factory.inflate(R.layout.fila_plato, null);
+        botonAgregar = textEntryView.findViewById(R.id.imageButton_addDish);
+        //if(source.equals("PedidoActivity"))
+        botonAgregar.setVisibility(View.VISIBLE);*/
+
+
+        View inflatedView = getLayoutInflater().inflate(R.layout.fila_plato, null);
+        botonAgregar = inflatedView.findViewById(R.id.imageButton_addDish);
+        botonAgregar.setVisibility(View.VISIBLE);
+
+
         AdapterDishes adapter = new AdapterDishes(listaPlatos, this);
         recyclerView.setAdapter(adapter);
-
-
-        botonAgregar = findViewById(R.id.imageButton);
-        botonAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentResultado = new Intent();
-                intentResultado.putExtra("")
-
-
-            }
-        });
 
     }
 
