@@ -60,7 +60,14 @@
     <string name="adress">Dirección</string>
     <string name="toolbarPedido_title">Nuevo pedido</string>
     <string name="tv_delivery">Método de entrega</string>
+    <string name="tv_dishes">Platos incluidos</string>
     <string name="rbEnvio">Envio</string>
     <string name="rbTakeaway">Take away</string>
     <string name="button_AddDish">Agregar platos</string>
+    <string name="button_Confirm">Confirmar pedido</string>
+    <string name="error">Debe completar el campo</string>
+    <string name="error_Final">Complete los campos</string>
+    <string name="notificaciónTitulo">Send Meal</string>
+    <string name="notificaciónDescripción">Su pedido ha sido confirmado</string>
+
 </resources>

@@ -55,22 +55,11 @@ public class ListDishesActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Recibir Extra del intent mandado por una Actividad
 
-        //Mostrar botón para agregar el plato al pedido
-        //String source = getIntent().getStringExtra("source");
-        /*final LayoutInflater factory = getLayoutInflater();
-        final View textEntryView = factory.inflate(R.layout.fila_plato, null);
-        botonAgregar = textEntryView.findViewById(R.id.imageButton_addDish);
-        //if(source.equals("PedidoActivity"))
-        botonAgregar.setVisibility(View.VISIBLE);*/
+        String source = getIntent().getStringExtra("source");
 
-
-        View inflatedView = getLayoutInflater().inflate(R.layout.fila_plato, null);
-        botonAgregar = inflatedView.findViewById(R.id.imageButton_addDish);
-        botonAgregar.setVisibility(View.VISIBLE);
-
-
-        AdapterDishes adapter = new AdapterDishes(listaPlatos, this);
+        AdapterDishes adapter = new AdapterDishes(listaPlatos, this, source);
         recyclerView.setAdapter(adapter);
 
     }

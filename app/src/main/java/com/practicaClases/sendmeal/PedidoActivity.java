@@ -3,19 +3,31 @@ package com.practicaClases.sendmeal;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.practicaClases.sendmeal.HomeActivity;
 import com.practicaClases.sendmeal.ListDishesActivity;
@@ -25,14 +37,23 @@ import com.practicaClases.sendmeal.model.AdapterOrder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class PedidoActivity extends AppCompatActivity {
 
+
+    public static final String NOTIFICATION_CHANNEL_ID = "10001";
+    private final static String default_notification_channel_id = "default";
+
+
     private static final int CODIGO_BUSCAR_PLATO = 987;
     ListView lvPedidos;
-    //List<ArrayList<String>> listaPlatos = new ArrayList<>();
-    ArrayList<String> listaPlatos = new ArrayList<>();
-    Button addDish;
+    ArrayList<String> listaNombre = new ArrayList<>();
+    ArrayList<Double> listaPrecio = new ArrayList<>();
+    EditText et_email, et_adress;
+    TextView total, cantidad;
+    Button addDish, confirm;
+    GuardarPedido tarea;
 
 
     @Override
@@ -55,30 +76,139 @@ public class PedidoActivity extends AppCompatActivity {
             }
         });
 
-        addDish = findViewById(R.id.button_addDishes_id);
+        cantidad = findViewById(R.id.amountDishes_id);
+        total = findViewById(R.id.totalPrice_id);
 
+        et_email = findViewById(R.id.email_id);
+        et_adress = findViewById(R.id.adress_id);
+
+        et_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    validarEmail();
+                }
+            }
+        });
+
+        et_adress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus && et_adress.getText().toString().isEmpty()) {
+                    et_adress.setError(getString(R.string.error));
+                }
+            }
+        });
+
+
+        //BOTON AGREGAR PLATO
+        addDish = findViewById(R.id.button_addDishes_id);
         addDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent (PedidoActivity.this, ListDishesActivity.class);
+                Intent i = new Intent(PedidoActivity.this, ListDishesActivity.class);
                 i.putExtra("source", "PedidoActivity");
                 startActivityForResult(i, CODIGO_BUSCAR_PLATO);
             }
         });
 
-        //Adapter
-        lvPedidos = findViewById(R.id.lv_dishes);
-        AdapterOrder adapter = new AdapterOrder( listaPlatos, this);
-        lvPedidos.setAdapter((ListAdapter) adapter);
+
+        //BOTON CONFIRMAR PEDIDO
+        tarea = new GuardarPedido();
+        confirm = findViewById(R.id.button_confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_adress.getText().toString().isEmpty() || et_email.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_Final), Toast.LENGTH_LONG).show();
+                } else {
+                    tarea.execute();
+                }
+            }
+        });
+
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            if(resultCode== Activity.RESULT_OK){
-                if(requestCode==CODIGO_BUSCAR_PLATO){
-                    listaPlatos.add(data.getExtras().getString("listaPlato"));
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CODIGO_BUSCAR_PLATO) {
+                listaNombre.add(data.getExtras().getString("nombrePlato"));
+                Log.d(PedidoActivity.class.getName(), "Obtuve Extra nombre Plato: " + data.getExtras().getString("nombrePlato"));
+                listaPrecio.add(data.getDoubleExtra("precioPlato", 0));
+
+                //ADAPTER LISTVIEW
+                lvPedidos = findViewById(R.id.lv_dishes);
+                AdapterOrder adapter = new AdapterOrder(listaNombre, listaPrecio, this);
+                lvPedidos.setAdapter(adapter);
+
+                Double totalPrice = 0.0;
+                int cant = 0;
+                for (Double p : adapter.getListaPrecio()) {
+                    totalPrice = totalPrice + p;
+                    cant = cant+1;
                 }
+
+                total.setText("Total: $"+ String.valueOf(totalPrice));
+                cantidad.setText("Cantidad: " + String.valueOf(cant));
+
             }
+
+
+        }
+    }
+
+
+    public boolean validarEmail() {
+        Pattern pattern_email = Patterns.EMAIL_ADDRESS;
+        if (!pattern_email.matcher(et_email.getText().toString()).matches() && !et_email.getText().toString().isEmpty()) {
+            et_email.setError(getString(R.string.error_email));
+            return false;
+        } else return true;
+    }
+
+    class GuardarPedido extends AsyncTask<Double, Integer, String> {
+        //la tarea esperará 5 segundos en el background antes de
+        // finalizar y enviar un mensaje de broadcast para crear
+        // una notificacion de android
+
+        @Override
+        protected String doInBackground(Double... doubles) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            Notification notification = getNotification(getString(R.string.notificaciónDescripción), getString(R.string.notificaciónTitulo));
+            Intent notificationIntent = new Intent(getApplicationContext(), MyNotificationPublisher.class);
+            notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATION_ID, 1);
+            notificationIntent.putExtra(MyNotificationPublisher.PEDIDO_GUARDADO, notification);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            assert alarmManager != null;
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, pendingIntent);
+
+
+        }
+
+
+        private Notification getNotification(String content, String tittle) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), default_notification_channel_id);
+            builder.setContentTitle(!tittle.isEmpty() ? tittle : "Scheduled Notification");
+            builder.setContentText(content);
+            builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+            builder.setAutoCancel(true);
+            builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+            return builder.build();
+        }
     }
 }

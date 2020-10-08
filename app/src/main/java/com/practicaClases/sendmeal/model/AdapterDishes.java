@@ -26,12 +26,13 @@ import java.util.List;
 public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewHolder> {
     private List<Plato> mDataset;
     private AppCompatActivity context;
+    private String source;
 
 
-
-    public AdapterDishes(List<Plato> myDataset, AppCompatActivity act) {
+    public AdapterDishes(List<Plato> myDataset, AppCompatActivity act, String sourceActivity) {
         mDataset = myDataset;
         context = act;
+        source = sourceActivity;
     }
 
     public class PlatoViewHolder extends RecyclerView.ViewHolder {
@@ -49,6 +50,24 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
             tv_price = v.findViewById(R.id.tv_dishPrice);
             i_dish = v.findViewById(R.id.imageDish_id);
             botonAgregar = v.findViewById(R.id.imageButton_addDish);
+
+
+            if(source!=null && source.equals("PedidoActivity") )
+                botonAgregar.setVisibility(v.VISIBLE);
+            else
+                botonAgregar.setVisibility(v.GONE);
+
+            botonAgregar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentResultado = new Intent();
+                    intentResultado.putExtra("nombrePlato",tv_name.getText().toString());
+                    intentResultado.putExtra("precioPlato",Double.parseDouble((tv_price.getText().toString())));
+                    context.setResult(Activity.RESULT_OK, intentResultado);
+                    context.finish();
+                }
+            });
+
 
         }
 
@@ -69,19 +88,8 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
         Plato plato = mDataset.get(position);
 
         holder.tv_name.setText(plato.getTitulo());
-        holder.tv_price.setText("$ " + Double.toString(plato.getPrecio()));
+        holder.tv_price.setText(Double.toString(plato.getPrecio()));
         holder.i_dish.setImageResource(R.drawable.food2);
-
-        holder.botonAgregar.setOnClickListener(new View.OnClickListener() { //////////////
-            @Override
-            public void onClick(View v) {
-                Intent intentResultado = new Intent();
-                intentResultado.putExtra("idPlato", mDataset.get(position).getId_plato());
-                context.setResult(Activity.RESULT_OK, intentResultado);
-                context.finish();
-
-            }
-        });
 
     }
 

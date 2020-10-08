@@ -86,7 +86,7 @@
                     android:id="@+id/tv_eleccion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/layout_margin2"
+                    android:layout_marginTop="@dimen/layout_margin"
                     android:layout_marginBottom="@dimen/layout_margin"
                     android:fontFamily="@font/nunito_sans"
                     android:text="@string/tv_delivery"
@@ -105,7 +105,8 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/nunito_sans_extralight"
                         android:text="@string/rbEnvio"
-                        android:textSize="@dimen/tamaño_fuente2" />
+                        android:textSize="@dimen/tamaño_fuente2"
+                        android:checked="true"/>
 
                     <RadioButton
                         android:id="@+id/takeAway_id"
@@ -118,11 +119,47 @@
 
                 </RadioGroup>
 
+                <TextView
+                    android:id="@+id/tv_dishes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_margin"
+                    android:layout_marginBottom="@dimen/layout_margin"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="@string/tv_dishes"
+                    android:textSize="@dimen/tamaño_fuente2" />
+
+
                 <ListView
                     android:id="@+id/lv_dishes"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" >
+
+                </ListView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/amountDishes_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nunito_sans"
+                        android:textSize="@dimen/tamaño_fuente2" />
+
+                    <TextView
+                        android:id="@+id/totalPrice_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/nunito_sans"
+                        android:textSize="@dimen/tamaño_fuente2" />
+                </LinearLayout>
+
 
                 <Button
                     android:id="@+id/button_addDishes_id"
@@ -132,6 +169,18 @@
                     android:backgroundTint="@color/colorAccent"
                     android:fontFamily="@font/nunito_sans"
                     android:text="@string/button_AddDish"
+                    android:textSize="@dimen/tamaño_fuente" />
+
+
+
+                <Button
+                    android:id="@+id/button_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="@string/button_Confirm"
                     android:textSize="@dimen/tamaño_fuente" />
 
             </LinearLayout>
