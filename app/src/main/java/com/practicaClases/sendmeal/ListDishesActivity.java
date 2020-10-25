@@ -59,6 +59,10 @@ public class ListDishesActivity extends AppCompatActivity {
 
         String source = getIntent().getStringExtra("source");
 
+        //
+
+
+
         AdapterDishes adapter = new AdapterDishes(listaPlatos, this, source);
         recyclerView.setAdapter(adapter);
 
