@@ -4,8 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -15,26 +13,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.practicaClases.sendmeal.HomeActivity;
-import com.practicaClases.sendmeal.ListDishesActivity;
-import com.practicaClases.sendmeal.MainActivity;
-import com.practicaClases.sendmeal.R;
-import com.practicaClases.sendmeal.Repository.AppRepository;
+import com.practicaClases.sendmeal.DAO.AppRepository;
 import com.practicaClases.sendmeal.model.AdapterOrder;
 import com.practicaClases.sendmeal.model.Pedido;
 import com.practicaClases.sendmeal.model.Plato;
@@ -134,10 +122,7 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
                 if (et_adress.getText().toString().isEmpty() || et_email.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_Final), Toast.LENGTH_LONG).show();
                 } else {
-                    Pedido pedido = new Pedido(et_email.getText().toString(), et_adress.getText().toString(), envio.isChecked(), listaPlatosId);
-                /////////////////////////////////////////////////verLISTAPLATOSID
-
-
+                    Pedido pedido = new Pedido(et_email.getText().toString(), et_adress.getText().toString(), envio.isChecked());
 
                    //SETEAR IDPEDIDO A CADA PLATO
                     int i = 0 ;
@@ -151,7 +136,6 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
                         }
                         i++;
                     }
-
                     //EJECUTAR NOTIFICACIÓN
                     tarea.execute();
                 }

@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.practicaClases.sendmeal.model.Plato;
@@ -26,5 +27,9 @@ public interface PedidoDao {
 
     @Query("SELECT * FROM plato")
     List<Plato> buscarTodos();
+
+    @Transaction
+    @Query("SELECT * FROM Pedido")
+    public List<PedidoConPlatos> getPedidoConPlatos();
 
 }

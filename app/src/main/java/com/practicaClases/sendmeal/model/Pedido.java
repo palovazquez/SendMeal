@@ -11,16 +11,13 @@ public class Pedido {
     private Long id_pedido;
     private String correoElectronico, direccion;
     private Boolean envio;
-    //private List<Plato> listaPlatos;
-    private List<Long> listaPlatos;
+    //private List<Long> listaPlatos;
 
-    public Pedido (String correoElectronico, String direccion, Boolean envio, List<Long> listaPlatos){
+    public Pedido (String correoElectronico, String direccion, Boolean envio){
 
         this.correoElectronico = correoElectronico;
         this.direccion = direccion;
         this.envio = envio;
-        this.listaPlatos = listaPlatos;
-
     }
 
 

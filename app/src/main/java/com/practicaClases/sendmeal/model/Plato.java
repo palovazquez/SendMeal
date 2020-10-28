@@ -1,22 +1,25 @@
 package com.practicaClases.sendmeal.model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.util.Objects;
 
-@Entity
+
+@Entity(foreignKeys = @ForeignKey(entity = Pedido.class,
+        parentColumns = "id_pedido",
+        childColumns = "idPedido"))
 public class Plato {
     @PrimaryKey(autoGenerate = true)
-  private Long id_plato;
-  private String titulo, descripcion;
-  private Double precio;
-  private Integer calorías;
-  private Long idPedido;
-    //private static Long idCounter = Long.valueOf(0);
+    private Long id_plato;
+    private String titulo, descripcion;
+    private Double precio;
+    private Integer calorías;
+    private Long idPedido;
+
 
     public Plato(String titulo, String descripcion, Double precio, Integer calorías) {
-       // this.id_plato = idCounter++;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -33,7 +36,6 @@ public class Plato {
                 getPrecio().equals(plato.getPrecio()) &&
                 getCalorías().equals(plato.getCalorías());
     }
-
 
     public Long getId_plato() {
         return id_plato;
