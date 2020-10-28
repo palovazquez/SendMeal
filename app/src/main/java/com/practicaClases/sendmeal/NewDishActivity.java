@@ -89,7 +89,8 @@ public class NewDishActivity extends AppCompatActivity {
     public void esCorrecto(Plato plato){
             Toast.makeText(getApplicationContext(), getString(R.string.successful_load), Toast.LENGTH_LONG).show();
 
-            //ListDishesActivity.getListaPlatos().add(plato);
+            //TODO SACAR LISTAPLATOS DE BDD
+            ListDishesActivity.getListaPlatos().add(plato);
             et_name.setText("");
             et_description.setText("");
             et_calories.setText("");

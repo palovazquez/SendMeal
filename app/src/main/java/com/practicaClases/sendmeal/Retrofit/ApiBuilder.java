@@ -10,18 +10,19 @@ public class ApiBuilder {
 
     private static ApiBuilder INSTANCIA;
     private PlatoService platoService;
+    private PedidoService pedidoService;
 
     private ApiBuilder(){
     }
 
     public void iniciarRetrofit(){
-    Gson gson = new GsonBuilder().setLenient().create();
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/")
-            // En la siguiente linea, le especificamos a Retrofit que tiene que usar Gson para deserializar nuestros objetos
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
-    PlatoService platoService = retrofit.create(PlatoService.class);
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5000/")
+                // En la siguiente linea, le especificamos a Retrofit que tiene que usar Gson para deserializar nuestros objetos
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        PlatoService platoService = retrofit.create(PlatoService.class);
     }
 
     public PlatoService getPlatoRest() {
@@ -30,6 +31,11 @@ public class ApiBuilder {
         return platoService;
     }
 
+    public PedidoService getPedidoRest() {
+        if(pedidoService == null)
+            this.iniciarRetrofit();
+        return pedidoService;
+    }
 
     public static ApiBuilder getInstance() {
         if(INSTANCIA == null){

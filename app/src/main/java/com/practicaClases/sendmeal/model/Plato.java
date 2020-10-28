@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
 
@@ -12,10 +14,15 @@ import java.util.Objects;
         childColumns = "idPedido"))
 public class Plato {
     @PrimaryKey(autoGenerate = true)
+    @Expose
     private Long id_plato;
+    @Expose
     private String titulo, descripcion;
+    @Expose
     private Double precio;
+    @Expose
     private Integer calorías;
+    @Expose
     private Long idPedido;
 
 

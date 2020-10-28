@@ -19,7 +19,6 @@ public class PlatoRepositoryService {
     }
 
     public void ListarPlatos(){
-        Plato plato = new Plato();
         Call<List<Plato>> callPlatos = platoService.getPlatoList();
 
         callPlatos.enqueue(
@@ -40,34 +39,46 @@ public class PlatoRepositoryService {
 
     }
 
-    public void CrearPlato(){
-        Plato plato = new Plato();
-        Call<List<Plato>> callPlatos = platoService.getPlatoList();
+    public void CrearPlato(String titulo, String descripcion, Double precio, Integer calorías){
+        Plato plato = new Plato(titulo, descripcion, precio, calorías);
+        Call<Plato> callPlatos = platoService.createPlato(plato);
 
         callPlatos.enqueue(
-                new Callback<List<Plato>>() {
+                new Callback<Plato>() {
                     @Override
-                    public void onResponse(Call<List<Plato>> call, Response<List<Plato>> response) {
+                    public void onResponse(Call<Plato> call, Response<Plato> response) {
                         if (response.code() == 200) {
                             Log.d("DEBUG", "Returno Exitoso");
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<List<Plato>> call, Throwable t) {
+                    public void onFailure(Call<Plato> call, Throwable t) {
+                        Log.d("DEBUG", "Returno Fallido");
+                    }
+                }
+        );
+    }
+
+    public void BuscarPlato(Long id){
+        Call<Plato> callPlatos = platoService.getPlato(id.toString());
+
+        callPlatos.enqueue(
+                new Callback<Plato>() {
+                    @Override
+                    public void onResponse(Call<Plato> call, Response<Plato> response) {
+                        if (response.code() == 200) {
+                            Log.d("DEBUG", "Returno Exitoso");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Plato> call, Throwable t) {
                         Log.d("DEBUG", "Returno Fallido");
                     }
                 }
         );
 
-
-
-
-
     }
-
-
 
 }
-
-
