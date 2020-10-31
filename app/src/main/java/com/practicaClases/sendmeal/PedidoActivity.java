@@ -4,8 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -15,31 +13,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.practicaClases.sendmeal.HomeActivity;
-import com.practicaClases.sendmeal.ListDishesActivity;
-import com.practicaClases.sendmeal.MainActivity;
-import com.practicaClases.sendmeal.R;
+import com.practicaClases.sendmeal.DAO.AppRepository;
 import com.practicaClases.sendmeal.model.AdapterOrder;
+import com.practicaClases.sendmeal.model.Pedido;
+import com.practicaClases.sendmeal.model.Plato;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class PedidoActivity extends AppCompatActivity {
+public class PedidoActivity extends AppCompatActivity implements AppRepository.OnResultCallback  {
 
 
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
@@ -50,8 +42,11 @@ public class PedidoActivity extends AppCompatActivity {
     ListView lvPedidos;
     ArrayList<String> listaNombre = new ArrayList<>();
     ArrayList<Double> listaPrecio = new ArrayList<>();
+    List<Long> listaPlatosId = new ArrayList<Long>();
+    List<Plato> listaPlatos = new ArrayList<Plato>();
     EditText et_email, et_adress;
     TextView total, cantidad;
+    RadioButton envio;
     Button addDish, confirm;
     GuardarPedido tarea;
 
@@ -78,6 +73,7 @@ public class PedidoActivity extends AppCompatActivity {
 
         cantidad = findViewById(R.id.amountDishes_id);
         total = findViewById(R.id.totalPrice_id);
+        envio = findViewById(R.id.envio_id);
 
         et_email = findViewById(R.id.email_id);
         et_adress = findViewById(R.id.adress_id);
@@ -113,6 +109,10 @@ public class PedidoActivity extends AppCompatActivity {
         });
 
 
+        // BUSCAR PLATOS EN BDD
+        AppRepository repository = new AppRepository(this.getApplication(), this);
+        repository.buscarTodos();
+
         //BOTON CONFIRMAR PEDIDO
         tarea = new GuardarPedido();
         confirm = findViewById(R.id.button_confirm);
@@ -122,6 +122,21 @@ public class PedidoActivity extends AppCompatActivity {
                 if (et_adress.getText().toString().isEmpty() || et_email.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_Final), Toast.LENGTH_LONG).show();
                 } else {
+                    Pedido pedido = new Pedido(et_email.getText().toString(), et_adress.getText().toString(), envio.isChecked());
+
+                   //SETEAR IDPEDIDO A CADA PLATO
+                    int i = 0 ;
+                    while(i < listaPlatos.size()){
+                        int j = 0;
+                        while(j < listaPlatosId.size()){
+                            if(listaPlatosId.get(j)==listaPlatos.get(i).getId_plato()){
+                             listaPlatos.get(i).setIdPedido(listaPlatosId.get(j));
+                            }
+                            j++;
+                        }
+                        i++;
+                    }
+                    //EJECUTAR NOTIFICACIÓN
                     tarea.execute();
                 }
             }
@@ -135,9 +150,11 @@ public class PedidoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CODIGO_BUSCAR_PLATO) {
+
+                //GET EXTRAS DEL INTENT
                 listaNombre.add(data.getExtras().getString("nombrePlato"));
-                Log.d(PedidoActivity.class.getName(), "Obtuve Extra nombre Plato: " + data.getExtras().getString("nombrePlato"));
                 listaPrecio.add(data.getDoubleExtra("precioPlato", 0));
+                listaPlatosId.add(data.getLongExtra("idPlato", 0));
 
                 //ADAPTER LISTVIEW
                 lvPedidos = findViewById(R.id.lv_dishes);
@@ -167,6 +184,20 @@ public class PedidoActivity extends AppCompatActivity {
             et_email.setError(getString(R.string.error_email));
             return false;
         } else return true;
+    }
+
+
+
+    //TODO
+    @Override
+    public void onResult(List result) {
+        // Vamos a obtener una Lista de items como resultado cuando finalize
+        listaPlatos = result;
+    }
+
+    @Override
+    public void onResult(Object result) {
+
     }
 
     class GuardarPedido extends AsyncTask<Double, Integer, String> {

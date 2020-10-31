@@ -53,7 +53,9 @@ public class NewDishActivity extends AppCompatActivity {
                 if(!validarCampos()){
                     Toast.makeText(getApplicationContext(), getString(R.string.error_incomplete), Toast.LENGTH_LONG).show();
                 } else {
+
                     Plato plato = new Plato(et_name.getText().toString(), et_description.getText().toString(), Double.parseDouble(et_price.getText().toString()), (int) Double.parseDouble(et_calories.getText().toString()));
+
                     if(!ListDishesActivity.getListaPlatos().isEmpty()){
                         int i = 0;
                         boolean coincide = false;
@@ -83,17 +85,20 @@ public class NewDishActivity extends AppCompatActivity {
 
     }
 
+
     public void esCorrecto(Plato plato){
             Toast.makeText(getApplicationContext(), getString(R.string.successful_load), Toast.LENGTH_LONG).show();
+
+            //TODO SACAR LISTAPLATOS DE BDD
             ListDishesActivity.getListaPlatos().add(plato);
             et_name.setText("");
             et_description.setText("");
             et_calories.setText("");
             et_price.setText("");
-
     }
 
 
+    //VALIDAR
     public boolean validarCampos() {
         boolean validado = true;
 

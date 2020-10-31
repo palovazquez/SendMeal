@@ -36,11 +36,12 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
     }
 
     public class PlatoViewHolder extends RecyclerView.ViewHolder {
+
         CardView card;
         TextView tv_name, tv_price;
         ImageView i_dish;
         ImageButton botonAgregar;
-
+        Long idPlato;
 
 
         public PlatoViewHolder(View v) {
@@ -52,6 +53,7 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
             botonAgregar = v.findViewById(R.id.imageButton_addDish);
 
 
+
             if(source!=null && source.equals("PedidoActivity") )
                 botonAgregar.setVisibility(v.VISIBLE);
             else
@@ -61,13 +63,15 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
                 @Override
                 public void onClick(View v) {
                     Intent intentResultado = new Intent();
+
+
+                    intentResultado.putExtra("idPlato", idPlato);
                     intentResultado.putExtra("nombrePlato",tv_name.getText().toString());
                     intentResultado.putExtra("precioPlato",Double.parseDouble((tv_price.getText().toString())));
                     context.setResult(Activity.RESULT_OK, intentResultado);
                     context.finish();
                 }
             });
-
 
         }
 
@@ -83,9 +87,12 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
 
     @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
     @Override
-    public void onBindViewHolder(@NonNull AdapterDishes.PlatoViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull PlatoViewHolder holder, final int position) {
 
         Plato plato = mDataset.get(position);
+
+        //ObtenerID para pasarle a PedidoActivity
+        holder.idPlato = plato.getId_plato();
 
         holder.tv_name.setText(plato.getTitulo());
         holder.tv_price.setText(Double.toString(plato.getPrecio()));

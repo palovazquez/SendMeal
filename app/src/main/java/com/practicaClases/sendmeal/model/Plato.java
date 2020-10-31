@@ -1,16 +1,32 @@
 package com.practicaClases.sendmeal.model;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
+
+@Entity(foreignKeys = @ForeignKey(entity = Pedido.class,
+        parentColumns = "id_pedido",
+        childColumns = "idPedido"))
 public class Plato {
-  private Integer id_plato;
-  private String titulo, descripcion;
-  private Double precio;
-  private Integer calorías;
-  private static Integer idCounter = 0;
+    @PrimaryKey(autoGenerate = true)
+    @Expose
+    private Long id_plato;
+    @Expose
+    private String titulo, descripcion;
+    @Expose
+    private Double precio;
+    @Expose
+    private Integer calorías;
+    @Expose
+    private Long idPedido;
+
 
     public Plato(String titulo, String descripcion, Double precio, Integer calorías) {
-        this.id_plato = idCounter++;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -28,12 +44,11 @@ public class Plato {
                 getCalorías().equals(plato.getCalorías());
     }
 
-
-    public int getId_plato() {
+    public Long getId_plato() {
         return id_plato;
     }
 
-    public void setId_plato(int id_plato) {
+    public void setId_plato(Long id_plato) {
         this.id_plato = id_plato;
     }
 
@@ -67,5 +82,13 @@ public class Plato {
 
     public void setCalorías(Integer calorías) {
         this.calorías = calorías;
+    }
+
+    public Long getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Long idPedido) {
+        this.idPedido = idPedido;
     }
 }
