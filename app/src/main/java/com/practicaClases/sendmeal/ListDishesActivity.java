@@ -58,10 +58,7 @@ public class ListDishesActivity extends AppCompatActivity {
         //Recibir Extra del intent mandado por una Actividad
 
         String source = getIntent().getStringExtra("source");
-
         //
-
-
 
         AdapterDishes adapter = new AdapterDishes(listaPlatos, this, source);
         recyclerView.setAdapter(adapter);

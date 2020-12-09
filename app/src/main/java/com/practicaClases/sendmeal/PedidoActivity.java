@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.practicaClases.sendmeal.DAO.AppRepository;
+import com.practicaClases.sendmeal.Mapa.MapaActivity;
 import com.practicaClases.sendmeal.model.AdapterOrder;
 import com.practicaClases.sendmeal.model.Pedido;
 import com.practicaClases.sendmeal.model.Plato;
@@ -39,6 +42,7 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
 
 
     private static final int CODIGO_BUSCAR_PLATO = 987;
+    private static final int CODIGO_LATITUD_MAPA = 989;
     ListView lvPedidos;
     ArrayList<String> listaNombre = new ArrayList<>();
     ArrayList<Double> listaPrecio = new ArrayList<>();
@@ -47,8 +51,10 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
     EditText et_email, et_adress;
     TextView total, cantidad;
     RadioButton envio;
-    Button addDish, confirm;
+    Button addDish, confirm, addMapa;
     GuardarPedido tarea;
+    LatLng ubicacion = null;
+
 
 
     @Override
@@ -113,16 +119,33 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
         AppRepository repository = new AppRepository(this.getApplication(), this);
         repository.buscarTodos();
 
+        //AGREGAR DIRECCIÓN
+        addMapa = findViewById(R.id.button_addMapa_id);
+        addMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PedidoActivity.this, MapaActivity.class);
+                i.putExtra("mapa", "PedidoActivity");
+                startActivityForResult(i, CODIGO_LATITUD_MAPA);
+            }
+        });
+
+
+
+
+
         //BOTON CONFIRMAR PEDIDO
         tarea = new GuardarPedido();
         confirm = findViewById(R.id.button_confirm);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (et_adress.getText().toString().isEmpty() || et_email.getText().toString().isEmpty()) {
+                if (et_adress.getText().toString().isEmpty() || et_email.getText().toString().isEmpty() || ubicacion==null) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_Final), Toast.LENGTH_LONG).show();
+                    Log.d("MAPA", "Esta es la latitud nula:" + ubicacion);
                 } else {
-                    Pedido pedido = new Pedido(et_email.getText().toString(), et_adress.getText().toString(), envio.isChecked());
+                    Log.d("MAPA", "Esta es la latitud correcta:" + ubicacion);
+                    Pedido pedido = new Pedido(et_email.getText().toString(), et_adress.getText().toString(), envio.isChecked(), ubicacion);
 
                    //SETEAR IDPEDIDO A CADA PLATO
                     int i = 0 ;
@@ -138,6 +161,10 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
                     }
                     //EJECUTAR NOTIFICACIÓN
                     tarea.execute();
+
+                    Intent j = new Intent(PedidoActivity.this, HomeActivity.class);
+                    startActivity(j);
+
                 }
             }
         });
@@ -172,9 +199,16 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
                 cantidad.setText("Cantidad: " + String.valueOf(cant));
 
             }
+            if(requestCode == CODIGO_LATITUD_MAPA) {
+                //GET EXTRAS DEL INTENT
+                ubicacion = data.getExtras().getParcelable("Ubicacion");
 
 
+            }
         }
+
+
+
     }
 
 

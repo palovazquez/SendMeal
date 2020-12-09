@@ -5,12 +5,17 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
+import com.practicaClases.sendmeal.Mapa.Converters;
+import com.practicaClases.sendmeal.model.Pedido;
 import com.practicaClases.sendmeal.model.Plato;
 
 import java.util.concurrent.Executor;
 
-@Database(entities = {Plato.class}, version = 1)
+@TypeConverters({Converters.class})
+@Database(entities = {Plato.class, Pedido.class}, version = 1)
+
 public abstract class AppDatabase extends RoomDatabase {
     public static Executor databaseWriteExecutor;
 

@@ -119,6 +119,16 @@
 
                 </RadioGroup>
 
+                <Button
+                    android:id="@+id/button_addMapa_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_margin"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="@string/button_Maps"
+                    android:textSize="12sp" />
+
                 <TextView
                     android:id="@+id/tv_dishes"
                     android:layout_width="match_parent"
@@ -170,7 +180,6 @@
                     android:fontFamily="@font/nunito_sans"
                     android:text="@string/button_AddDish"
                     android:textSize="@dimen/tamaño_fuente" />
-
 
 
                 <Button

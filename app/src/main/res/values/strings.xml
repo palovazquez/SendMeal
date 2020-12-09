@@ -65,9 +65,14 @@
     <string name="rbTakeaway">Take away</string>
     <string name="button_AddDish">Agregar platos</string>
     <string name="button_Confirm">Confirmar pedido</string>
+    <string name="button_Maps">Agregar dirección</string>
     <string name="error">Debe completar el campo</string>
     <string name="error_Final">Complete los campos</string>
     <string name="notificaciónTitulo">Send Meal</string>
     <string name="notificaciónDescripción">Su pedido ha sido confirmado</string>
 
+
+    <!-- Mapa -->
+    <string name="google_maps_key"> AIzaSyDDh6V0Ba6Q927jPc75p-BfoY03zIW81ks  </string>
+    <string name="button_ConfirmMapa">Confirmar Dirección</string>
 </resources>
