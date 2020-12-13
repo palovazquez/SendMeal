@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     //Lista de años Spinner
     ArrayList<String> years = new ArrayList<String>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

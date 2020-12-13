@@ -1,5 +1,7 @@
 package com.practicaClases.sendmeal.Mapa;
 
+import android.net.Uri;
+
 import androidx.room.TypeConverter;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -26,4 +28,16 @@ public class Converters {
             LatLng latLng = new LatLng(Double.parseDouble(part1),Double.parseDouble(part2));
             return valor == null ? null : latLng;
         }
+
+        @TypeConverter
+        public Uri stringToUri(String valor){
+            return  Uri.parse(valor);
+        }
+
+        @TypeConverter
+        public String uriToString (Uri valor){
+            return  valor.toString();
+        }
+
+
 }

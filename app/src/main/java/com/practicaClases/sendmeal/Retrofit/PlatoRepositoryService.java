@@ -1,5 +1,6 @@
 package com.practicaClases.sendmeal.Retrofit;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.practicaClases.sendmeal.model.Plato;
@@ -39,8 +40,8 @@ public class PlatoRepositoryService {
 
     }
 
-    public void CrearPlato(String titulo, String descripcion, Double precio, Integer calorías){
-        Plato plato = new Plato(titulo, descripcion, precio, calorías);
+    public void CrearPlato(String titulo, String descripcion, Double precio, Integer calorias, Uri uri){
+        Plato plato = new Plato(titulo, descripcion, precio, calorias,uri );
         Call<Plato> callPlatos = platoService.createPlato(plato);
 
         callPlatos.enqueue(

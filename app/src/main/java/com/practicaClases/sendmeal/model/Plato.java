@@ -1,5 +1,7 @@
 package com.practicaClases.sendmeal.model;
 
+import android.net.Uri;
+
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -24,13 +26,30 @@ public class Plato {
     private Integer calorías;
     @Expose
     private Long idPedido;
+    @Expose
+    private Uri uriImagen;
 
 
-    public Plato(String titulo, String descripcion, Double precio, Integer calorías) {
+    public Plato(String titulo, String descripcion, Double precio, Integer calorías, Uri uriImagen) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
         this.calorías = calorías;
+        //Ver si no agregaron foto
+        if(uriImagen==null){
+            this.uriImagen=null;
+        }else{
+            this.uriImagen = uriImagen;
+        }
+
+    }
+
+    public Uri getUriImagen() {
+        return uriImagen;
+    }
+
+    public void setUriImagen(Uri uriImagen) {
+        this.uriImagen = uriImagen;
     }
 
     @Override

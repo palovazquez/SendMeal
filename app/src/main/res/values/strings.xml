@@ -41,14 +41,15 @@
     <string name="menu_listitems">Lista de items</string>
 
     <!-- New Dish Activity -->
-    <string name="new_dish">"Complete los datos"</string>
-    <string name="dish_name">"Nombre del plato"</string>
-    <string name="dish_description">"Descripción"</string>
-    <string name="dish_price">"Precio"</string>
-    <string name="dish_calories">"Calorías"</string>
-    <string name="dish_save">"Guardar"</string>
-    <string name="error_incomplete">"Complete todos los campos"</string>
-    <string name="error_duplicate">"El plato ya existe"</string>
+    <string name="new_dish">Complete los datos</string>
+    <string name="dish_name">Nombre del plato</string>
+    <string name="dish_description">Descripción</string>
+    <string name="photo_description">Agrega una imagen</string>
+    <string name="dish_price">Precio</string>
+    <string name="dish_calories">Calorías</string>
+    <string name="dish_save">Guardar</string>
+    <string name="error_incomplete">Complete todos los campos</string>
+    <string name="error_duplicate">El plato ya existe</string>
     <string name="successful_load">Carga exitosa</string>
     <string name="toolbarNewDish_title">Agregar plato</string>
 

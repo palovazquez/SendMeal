@@ -91,6 +91,41 @@
                     android:inputType="textMultiLine"
                     android:theme="@style/Campos" />
 
+                <TextView
+                    android:id="@+id/tv_description2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_margin5"
+                    android:fontFamily="@font/nunito_sans"
+                    android:hint="@string/photo_description" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_margin3"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPhoto_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        app:srcCompat="@drawable/add_photocamera"/>
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPhotoGallery_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/add_photogallery" />
+
+
+                </LinearLayout>
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

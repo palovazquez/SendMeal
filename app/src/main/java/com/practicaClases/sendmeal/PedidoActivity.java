@@ -131,9 +131,6 @@ public class PedidoActivity extends AppCompatActivity implements AppRepository.O
         });
 
 
-
-
-
         //BOTON CONFIRMAR PEDIDO
         tarea = new GuardarPedido();
         confirm = findViewById(R.id.button_confirm);

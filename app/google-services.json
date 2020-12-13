@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "386725851231",
+    "project_id": "sendmeal-298019",
+    "storage_bucket": "sendmeal-298019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386725851231:android:e55cc26080ceeaed926bea",
+        "android_client_info": {
+          "package_name": "com.practicaClases.sendmeal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386725851231-0bdnr7k03lnldldb8k14cip36o5d46e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGo7ZnGH0n8fQF7T2KFCRZhmaM1O_2t00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386725851231-0bdnr7k03lnldldb8k14cip36o5d46e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

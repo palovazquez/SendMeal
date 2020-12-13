@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -49,11 +51,23 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 
-
+    //MAPA
     // Utilities for Maps SDK for Android (requires Google Play Services)
     implementation 'com.google.maps.android:android-maps-utils:2.1.0'
 
     // Alternately - Utilities for Maps SDK v3 BETA for Android (does not require Google Play Services)
    // implementation 'com.google.maps.android:android-maps-utils-v3:2.1.0'
+
+    //FIREBASE- CLOUD STORAGE
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+    // Declare the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-storage'
+    // Declare the dependency for the Firebase Authentication library
+    implementation 'com.google.firebase:firebase-auth'
+
+
+
 
 }
