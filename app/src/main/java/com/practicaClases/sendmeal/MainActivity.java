@@ -252,6 +252,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+//    -----------------
+ /*   btn_guardar.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Cliente cliente = new Cliente(dueño_name.getText().toString(), mascota_name.getText().toString(), mascota_age.getText().toString(), R.array.especies.get(spinner_especie..getSelectedItemPosition()))
+            MyDatabaseHelper db_v = new MyDatabaseHelper(MainActivity.this);
+            clientesCursor=db_v.getReadableDatabase().
+
+                    //constantsCursor = db_v.getWritableDatabase();
+                            db_v.getWritableDatabase().
+
+        }
+    });*/
+ //   -------------
+
     public boolean validarEmail() {
         Pattern pattern_email = Patterns.EMAIL_ADDRESS;
         if(!pattern_email.matcher(et_email.getText().toString()).matches() && !et_email.getText().toString().isEmpty()){

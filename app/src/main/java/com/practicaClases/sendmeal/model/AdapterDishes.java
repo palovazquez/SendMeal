@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,6 +114,7 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
             // Creamos una referencia al storage con la Uri de la img
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference gsReference = storage.getReferenceFromUrl(mDataset.get(position).getUriImagen().toString());
+            Log.d("FIREBASE", "URI conseguida en storage.getReferenceFromUrl: " + mDataset.get(position).getUriImagen() );
 
             final long THREE_MEGABYTE = 3 * 1024 * 1024;
             gsReference.getBytes(THREE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -126,20 +128,18 @@ public class AdapterDishes extends RecyclerView.Adapter<AdapterDishes.PlatoViewH
                     holderPlato.i_dish.setMinimumHeight(dm.heightPixels);
                     holderPlato.i_dish.setMinimumWidth(dm.widthPixels);
                     holderPlato.i_dish.setImageBitmap(bm);
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
+                    Log.d("FIREBASE", "ENTRO A FAILURE:" );
                     holder.i_dish.setImageResource(R.drawable.food2);
                 }
             });
         }
 
-
     }
-
-
-
 
 
     @Override

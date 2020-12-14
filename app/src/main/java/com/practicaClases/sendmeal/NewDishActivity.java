@@ -48,15 +48,17 @@ public class NewDishActivity extends AppCompatActivity {
     static final int MY_GALLERY_PERMISSION_CODE = 200;
 
 
-
     EditText et_name, et_description, et_price, et_calories;
     Button button_save;
     ImageButton button_photo, button_gallery;
-    StorageReference storageRef ;
+    StorageReference storageRef;
+    StorageReference platosImagesRef;
+    UploadTask uploadTask;
+
     FirebaseStorage storage;
     byte[] dataa;
-    //Uri downloadUri;
-    Uri imageUri;
+    Uri downloadUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +80,9 @@ public class NewDishActivity extends AppCompatActivity {
         });
 
 
-
         //FIREBASE
-       storage = FirebaseStorage.getInstance();
-       storageRef = storage.getReference();
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
 
 
         et_name = findViewById(R.id.dishName_id);
@@ -92,33 +93,35 @@ public class NewDishActivity extends AppCompatActivity {
         button_photo = findViewById(R.id.imageButtonPhoto_id);
         button_gallery = findViewById(R.id.imageButtonPhotoGallery_id);
 
+
+        //GUARDAR PLATO
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!validarCampos()){
+                if (!validarCampos()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_incomplete), Toast.LENGTH_LONG).show();
                 } else {
 
-                    Plato plato = new Plato(et_name.getText().toString(), et_description.getText().toString(), Double.parseDouble(et_price.getText().toString()), (int) Double.parseDouble(et_calories.getText().toString()), imageUri); //downloadUri);
-
-                    if(!ListDishesActivity.getListaPlatos().isEmpty()){
+                    Plato plato = new Plato(et_name.getText().toString(), et_description.getText().toString(), Double.parseDouble(et_price.getText().toString()),
+                            (int) Double.parseDouble(et_calories.getText().toString()), downloadUri);
+                    Log.d("FIREBASE", "URI guardada en el plato: " + plato.getUriImagen());
+                    if (!ListDishesActivity.getListaPlatos().isEmpty()) {
                         int i = 0;
                         boolean coincide = false;
                         int tamaño = ListDishesActivity.getListaPlatos().size();
 
-                        while(!(tamaño==i) && !coincide){
-                            if(ListDishesActivity.getListaPlatos().get(i).equals(plato))
+                        while (!(tamaño == i) && !coincide) {
+                            if (ListDishesActivity.getListaPlatos().get(i).equals(plato))
                                 coincide = true;
                             i++;
                         }
-                        if(coincide)
+                        if (coincide)
                             Toast.makeText(getApplicationContext(), getString(R.string.error_duplicate), Toast.LENGTH_LONG).show();
-                        else{
+                        else {
                             esCorrecto(plato);
                         }
 
-                    }
-                    else {
+                    } else {
                         esCorrecto(plato);
                     }
 
@@ -128,19 +131,14 @@ public class NewDishActivity extends AppCompatActivity {
         });
 
 
-
-
         button_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                {
-                    Log.d("PERMISOS", "Llama a request Permission BOTON CAMARA" );
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d("PERMISOS", "Llama a request Permission BOTON CAMARA");
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                }
-                else
-                {
-                    Log.d("PERMISOS", "Llama a abrircamara" );
+                } else {
+                    Log.d("PERMISOS", "Llama a abrircamara");
                     lanzarCamara();
                 }
             }
@@ -149,14 +147,11 @@ public class NewDishActivity extends AppCompatActivity {
         button_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                {
-                    Log.d("PERMISOS", "Llama a request Permission BOTON GALERIA" );
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d("PERMISOS", "Llama a request Permission BOTON GALERIA");
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                }
-                else
-                {
-                    Log.d("PERMISOS", "Llama a abrirgaleria" );
+                } else {
+                    Log.d("PERMISOS", "Llama a abrirgaleria");
                     abrirGaleria();
 
                 }
@@ -166,26 +161,20 @@ public class NewDishActivity extends AppCompatActivity {
 
     }
 
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, int i)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults, int i) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (requestCode == MY_CAMERA_PERMISSION_CODE) {
                 Toast.makeText(this, "camara ok", Toast.LENGTH_LONG).show();
                 lanzarCamara();
-            }else if (requestCode == MY_GALLERY_PERMISSION_CODE){
+            } else if (requestCode == MY_GALLERY_PERMISSION_CODE) {
                 Toast.makeText(this, "galeria ok", Toast.LENGTH_LONG).show();
                 abrirGaleria();
             }
-        }
-        else
-        {
+        } else {
             Toast.makeText(this, "permiso a camara denegado", Toast.LENGTH_LONG).show();
         }
     }
-
-
 
 
     private void lanzarCamara() {
@@ -195,69 +184,57 @@ public class NewDishActivity extends AppCompatActivity {
     }
 
     private void abrirGaleria() {
-       /* Log.d("GALERIA", "entro a abrirGaleria");
+        Log.d("GALERIA", "entro a abrirGaleria");
         Intent galeriaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(galeriaIntent, GALERIA_REQUEST);*/
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,GALERIA_REQUEST);
-        
-
+        startActivityForResult(galeriaIntent, GALERIA_REQUEST);
     }
-    /*public StorageReference firebase(){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        // ## Create a Reference
-
-        // [START create_storage_reference]
-        // Create a storage reference from our app
-        StorageReference storageRef = storage.getReference();
-        // Creamos una referencia a 'images/plato_id.jpg'
-        StorageReference platosImages = storageRef.child("images/plato_id.jpg");
-
-        return platosImages;
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == CAMARA_REQUEST || requestCode == GALERIA_REQUEST) && resultCode == RESULT_OK && data != null) {
 
-        Log.d("GALERIA", "request code GALERIA_REQUEST: " + requestCode + "Result code: " + resultCode);
-        if ((requestCode == CAMARA_REQUEST || requestCode == GALERIA_REQUEST) && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            /*Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            dataa = baos.toByteArray(); // Imagen en arreglo de bytes*/
-            imageUri = data.getData();
-            subirImagen();
-
-
-            //FIREBASE
-            //FirebaseStorage storage = FirebaseStorage.getInstance();
-            // ## Create a Reference
-            // [START create_storage_reference]
-            // Create a storage reference from our app
-            //  StorageReference storageRef = storage.getReference();
+            // Creamos una referencia a nuestro Storage
+            storageRef = storage.getReference();
             // Creamos una referencia a 'images/plato_id.jpg'
-            /* platosImagesRef = storageRef.child("images/plato_id.jpg");
+
+            final ProgressDialog pd = new ProgressDialog(this);
+            pd.setTitle("Cargando imagen...");
 
 
-            // Cual quiera de los tres métodos tienen la misma implementación, se debe utilizar el que corresponda
+            final String randomKey = UUID.randomUUID().toString();
 
-            UploadTask uploadTask = platosImagesRef.putBytes(dataa);;
-            if(requestCode == CAMARA_REQUEST ){
-                uploadTask = platosImagesRef.putBytes(dataa);}
-            if(requestCode == GALERIA_REQUEST ){
-                Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-                platosImagesRef = storageRef.child("images/"+file.getLastPathSegment());
+            if (requestCode == CAMARA_REQUEST) {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataa = baos.toByteArray(); // Imagen en arreglo de bytes
+                platosImagesRef = storageRef.child("images/" + randomKey + ".jpg");
+                pd.show();
+                uploadTask = (UploadTask) platosImagesRef.putBytes(dataa).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double progess = (100.00*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                        pd.setMessage("Porcentaje: " + (int) progess);} });
 
-                    uploadTask = platosImagesRef.putFile(file);
             }
+            if (requestCode == GALERIA_REQUEST) {
+                //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+                Uri dataGaleria = data.getData();
+                platosImagesRef = storageRef.child("images/" + dataGaleria.getLastPathSegment());
+                pd.show();
+                assert dataGaleria != null;
+                uploadTask = (UploadTask) platosImagesRef.putFile(dataGaleria)
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                double progess = (100.00*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                                pd.setMessage("Porcentaje: " + (int) progess);} });
 
-            // UploadTask uploadTask = platosImagesRef.putFile(file);
-            // UploadTask uploadTask = platosImagesRef.putStream(stream);
+
+            }
 
             // Registramos un listener para saber el resultado de la operación
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -276,63 +253,29 @@ public class NewDishActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // URL de descarga del archivo
                         downloadUri = task.getResult();
+                        pd.dismiss();
+                        Log.d("FIREBASE", "URL conseguida from task.getResult(): " + downloadUri);
                     } else {
-                        Log.d("FIREBASE", "Error addCompleteListener" );
+                        // Fallo
+                        pd.dismiss();
                     }
                 }
             });
         }
-        else{
-            Log.d("FIREBASE", "Error en OnActivityResult de CAMERA + GALLERY" );
-        }*/
-        }
     }
 
-    public void subirImagen(){
-        final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Cargando imagen...");
-        pd.show();
 
 
-        final String randomKey = UUID.randomUUID().toString();
 
-       //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+    public void esCorrecto(Plato plato) {
+        Toast.makeText(getApplicationContext(), getString(R.string.successful_load), Toast.LENGTH_LONG).show();
 
-        StorageReference riversRef = storageRef.child("images/"+randomKey);
-
-        riversRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        pd.dismiss();
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progess = (100.00*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                pd.setMessage("Porcentaje: " + (int) progess);
-            }
-        });
-
-
-    }
-
-    public void esCorrecto(Plato plato){
-            Toast.makeText(getApplicationContext(), getString(R.string.successful_load), Toast.LENGTH_LONG).show();
-
-            //TODO SACAR LISTAPLATOS DE BDD
-            ListDishesActivity.getListaPlatos().add(plato);
-            et_name.setText("");
-            et_description.setText("");
-            et_calories.setText("");
-            et_price.setText("");
+        //TODO SACAR LISTAPLATOS DE BDD
+        ListDishesActivity.getListaPlatos().add(plato);
+        et_name.setText("");
+        et_description.setText("");
+        et_calories.setText("");
+        et_price.setText("");
     }
 
 
@@ -340,19 +283,19 @@ public class NewDishActivity extends AppCompatActivity {
     public boolean validarCampos() {
         boolean validado = true;
 
-        if(et_name.getText().toString().isEmpty()){
+        if (et_name.getText().toString().isEmpty()) {
             et_name.startAnimation(shakeError());
             validado = false;
         }
-        if(et_description.getText().toString().isEmpty()){
+        if (et_description.getText().toString().isEmpty()) {
             et_description.startAnimation(shakeError());
             validado = false;
         }
-        if(et_price.getText().toString().isEmpty()){
+        if (et_price.getText().toString().isEmpty()) {
             et_price.startAnimation(shakeError());
             validado = false;
         }
-        if(et_calories.getText().toString().isEmpty()){
+        if (et_calories.getText().toString().isEmpty()) {
             et_calories.startAnimation(shakeError());
             validado = false;
         }
@@ -365,9 +308,6 @@ public class NewDishActivity extends AppCompatActivity {
         shake.setInterpolator(new CycleInterpolator(3));
         return shake;
     }
-
-
-
 
 
 }
