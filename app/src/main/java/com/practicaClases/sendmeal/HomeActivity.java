@@ -18,8 +18,9 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-//TODO faltan algunas dimensiones en main_activity.xml ---CARDVIEW YA ESTAN
+//TODO faltan algunas dimensiones en main_activity.xml
 
 //TODO faltaria definir un estilo con la fuente, para no tener que ponerla en cada view, con dimensiones etc
 
@@ -42,6 +43,24 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("TOKEN", "Error al conseguir el token");
+                            return;
+                        }
+
+                        // FCM token
+                        String token = task.getResult();
+
+                        // Imprimirlo en un toast y en logs
+                        Log.d("TOKEN", token);
+                        Toast.makeText(HomeActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarHome_id);
